@@ -150,7 +150,12 @@
         // Make sure errors are empty
         if(empty($data['email_err']) && empty($data['password_err'])){
           // Validated
-          die('SUCCESS');
+          
+          //Assign the session values 
+
+          //Redirect to the user home page
+          redirect('users/home');
+
         } else {
           // Load view with errors
           $this->view('users/login', $data);
@@ -169,5 +174,12 @@
         // Load view
         $this->view('users/login', $data);
       }
+    }
+
+    public function home() {
+      $data = [
+        'pageName' => 'User Home Page'
+      ];
+      $this->view('users/home', $data);
     }
   }
