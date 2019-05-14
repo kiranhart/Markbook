@@ -57,7 +57,7 @@
         }
 
         if (empty($data['sex'])) {
-            $data['sex_err'] = 'Please enter your gender';
+            $data['sex_err'] = 'Please enter your Sex';
         }
         
         if (empty($data['birthdate'])) {
@@ -177,9 +177,12 @@
     }
 
     public function home() {
+      
       $data = [
         'pageName' => 'User Home Page'
       ];
+
+
       $this->view('users/home', $data);
     }
   }

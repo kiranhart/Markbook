@@ -21,11 +21,31 @@
       $this->db->bind(':accountype', 0);
 
       // Execute
-      if($this->db->execute()){
+      if ($this->db->execute()){
         return true;
       } else {
         return false;
       }
+    }
+
+    //Return an entire user by email
+    public function getBaseUserDataByEmail($email) {
+      $this->db->query('SELECT * FROM users WHERE email = :email');
+      //Bind the values
+      $this->db->bind(':email', $email);
+      $row = $this->db->single();
+
+      return ($this->db->rowCount() > 0) ? $row : null;
+    }
+
+    //Return an entire user by id
+    public function getBaseUserDataById($id) {
+      $this->db->query('SELECT * FROM users where id = :id');
+      //Bind values
+      $this->db->bind(':id', $id);
+      $row = $this->db->single();
+
+      return ($his->db->rowCount() > 0) ? $row : null;
     }
 
     // Find user by email
@@ -33,7 +53,6 @@
       $this->db->query('SELECT * FROM users WHERE email = :email');
       // Bind value
       $this->db->bind(':email', $email);
-
       $row = $this->db->single();
 
       // Check row
