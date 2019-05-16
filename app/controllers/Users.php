@@ -147,15 +147,24 @@
           $data['password_err'] = 'Please enter password';
         }
 
+        if ($this->userModel->findUserByEmail($data['email'])) {
+          //Found the user
+        } else {
+          $data['email_err'] = 'That email isn\'t registered!';
+        }
+
         // Make sure errors are empty
-        if(empty($data['email_err']) && empty($data['password_err'])){
-          // Validated
-          
-          //Assign the session values 
+        if (empty($data['email_err']) && empty($data['password_err'])){
+          // Validated  
+          $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
-          //Redirect to the user home page
-          redirect('users/home');
-
+          if ($loggedInUser) {
+            //Create user session
+            $this->createUserSession($loggedInUser);
+          } else {
+            $data['password_err'] = 'Incorrect password!';
+            $this->view('users/login', $data);
+          }
         } else {
           // Load view with errors
           $this->view('users/login', $data);
@@ -177,12 +186,31 @@
     }
 
     public function home() {
-      
       $data = [
         'pageName' => 'User Home Page'
       ];
 
-
       $this->view('users/home', $data);
+    }
+
+    public function logout() {
+      unset($_SESSION['user_id']);
+      unset($_SESSION['user_email']);
+      session_destroy();
+      redirect('pages/index');
+    }
+
+    public function createUserSession($user) {
+      $_SESSION['user_id'] = $user->id;
+      $_SESSION['user_email'] = $user->email;
+      redirect('users/home');
+    }
+
+    public function isLoggedIn() {
+      if (isset($_SESSION['user_id'])) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }

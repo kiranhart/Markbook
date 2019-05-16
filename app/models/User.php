@@ -6,6 +6,21 @@
       $this->db = new Database;
     }
 
+    //Login User
+    public function login($email, $password) {
+      $this->db->query('SELECT * FROM users WHERE email = :email');
+      $this->db->bind(':email', $email);
+
+      $row = $this->db->single();
+      $hashedPassword = $row->password;
+      
+      if (password_verify($password, $hashedPassword)) {
+        return $row;
+      } else {
+        return false;
+      }
+    }
+
     // Regsiter user
     public function register($data){
       $this->db->query('INSERT INTO users (firstname, lastname, prefix, email, password, birthdate, sex, managed, accountype) VALUES(:firstname, :lastname, :prefix, :email, :password, :birthdate, :sex, :managed, :accountype)');

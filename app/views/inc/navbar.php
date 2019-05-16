@@ -5,5 +5,9 @@
         <a class="p-2 text-dark" href="<?php echo URLROOT . '/pages/features'; ?>">Features</a>
         <a class="p-2 text-dark" href="<?php echo URLROOT . '/pages/contact'; ?>">Contact</a>
     </nav>
-    <a class="btn btn-outline-primary" href="<?php echo URLROOT . '/users/login'; ?>">Login</a>
+    <?php if (isset($_SESSION['user_id'])) : ?>
+        <a class="btn btn-outline-primary" href="<?php echo URLROOT . '/users/logout'; ?>">Logout</a>
+    <?php else : ?>
+        <a class="btn btn-outline-primary" href="<?php echo URLROOT . '/users/login'; ?>">Login</a>
+    <?php endif; ?>
 </div>
