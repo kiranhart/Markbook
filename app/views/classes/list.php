@@ -26,10 +26,10 @@
 
         <div class="row">
             <?php foreach ($data['allClasses'] as $class) : ?>
-                <div class="card border-primary mx-1 col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div style="max-width: 360px" class="card bg-dark text-white my-2 mx-auto col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <div class="card-header"><?php echo $class->classname; ?></div>
                     <div class="card-body">
-                        <h4 class="card-title">Class Code: <?php echo $class->classcode; ?></h4>
+                        <p class="card-text"><strong>Class Code: </strong><?php echo $class->classcode; ?></p>
                         <p class="card-text"><?php echo $class->classdescription; ?></p>
                     </div>
                     <div class="card-footer">
@@ -38,6 +38,16 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <hr>
+        <br>
+
+        <div class="row">
+            <div class="col">
+                <a href="<?php echo URLROOT . '/classes/add'; ?>" class="btn btn-primary">Create Class</a>
+            </div>
+        </div>
+
     </div>
 <?php endif; ?>
 

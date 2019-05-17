@@ -33,6 +33,9 @@
                     <li class="nav-item active">
                         <a href="<?php echo URLROOT . '/pages/features'; ?>" class="nav-link">Features</a>
                     </li>
+                    <li class="nav-item active">
+                        <a href="<?php echo URLROOT . '/users/login'; ?>" class="nav-link btn btn-success px-3">Login</a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </div>

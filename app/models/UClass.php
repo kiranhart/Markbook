@@ -32,6 +32,13 @@ class UClass {
         }
     }
 
+    //Remove a specific class
+    public function removeClassByID($classID) {
+        $this->db->query('DELETE FROM class WHERE id = :id');
+        $this->db->bind(':id', $classID);
+        return ($this->db->execute()) ? true : false;
+    }
+
     //Get all of the classes by an email
     public function getAllClasses($email) {
         $this->db->query('SELECT * FROM class WHERE useremail = :email');
@@ -39,4 +46,5 @@ class UClass {
         $data = $this->db->resultSet();
         return $data;
     }
+
 }
