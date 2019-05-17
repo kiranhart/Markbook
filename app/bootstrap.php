@@ -1,4 +1,8 @@
 <?php
+
+  // Load Session Helper
+  require_once 'helpers/session_helper.php';
+
   // Load Config
   require_once 'config/config.php';
   // Load Helpers

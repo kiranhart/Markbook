@@ -159,7 +159,7 @@
           $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
           if ($loggedInUser) {
-            //Create user session
+            //Create user sessioM
             $this->createUserSession($loggedInUser);
           } else {
             $data['password_err'] = 'Incorrect password!';
@@ -193,24 +193,27 @@
       $this->view('users/home', $data);
     }
 
+    public function account() {
+        $data = [];
+        $this->view('users/account', $data);
+    }
+
+    private function createUserSession($loggedInUser) {
+      $_SESSION['user_id'] = $loggedInUser->id;
+      $_SESSION['user_email'] = $loggedInUser->email;
+      $_SESSION['user_data'] = $loggedInUser;
+      redirect('users/home');
+    }
+
     public function logout() {
       unset($_SESSION['user_id']);
       unset($_SESSION['user_email']);
+      unset($_SESSION['user_data']);
       session_destroy();
       redirect('pages/index');
     }
 
-    public function createUserSession($user) {
-      $_SESSION['user_id'] = $user->id;
-      $_SESSION['user_email'] = $user->email;
-      redirect('users/home');
-    }
-
     public function isLoggedIn() {
-      if (isset($_SESSION['user_id'])) {
-        return true;
-      } else {
-        return false;
-      }
+      return (isset($_SESSION['user_id'])) ? true : false;
     }
   }
