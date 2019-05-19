@@ -33,7 +33,7 @@ class UClass {
     }
 
     //Remove a specific class
-    public function removeClassByID($classID) {
+    public function removeClassById($classID) {
         $this->db->query('DELETE FROM class WHERE id = :id');
         $this->db->bind(':id', $classID);
         return ($this->db->execute()) ? true : false;
@@ -46,5 +46,12 @@ class UClass {
         $data = $this->db->resultSet();
         return $data;
     }
-
+    
+    //Get the class by id
+    public function getClassById($id) {
+        $this->db->query('SELECT * FROM class WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->single();
+        return $row;
+    }
 }

@@ -4,6 +4,7 @@ class Students extends Controller {
 
 	public function __construct() {
 		$this->studentModel = $this->model('Student');
+		$this->classModel = $this->model('UClass');
 	}
 
 	//Add
@@ -16,8 +17,6 @@ class Students extends Controller {
 				'lastname' => trim($_POST['lastname']),
 				'birthdate' => trim($_POST['birthdate']),
 				'email' => trim($_POST['email']),
-				'address' => trim($_POST['address']),
-				'phone' => trim($_POST['phone']),
 				'firstname_err' => '',
 				'lastname_err' => '',
 				'birthdate_err' => '',
@@ -54,8 +53,6 @@ class Students extends Controller {
 				'lastname' => '',
 				'birthdate' => '',
 				'email' => '',
-				'address' => '',
-				'phone' => '',
 				'firstname_err' => '',
 				'lastname_err' => '',
 				'birthdate_err' => '',

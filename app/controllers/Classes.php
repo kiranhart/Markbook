@@ -3,7 +3,14 @@
 class Classes extends Controller {
 
     public function __construct() {
+
+        if (!isLoggedIn()) {
+            redirect('users/login');
+        }
+
         $this->classModel = $this->model('UClass');
+        $this->assignmentModel = $this->model('Assignment');
+        $this->studentModel = $this->model('Student');
     }
 
     public function add() {
@@ -69,5 +76,17 @@ class Classes extends Controller {
         ];
 
         $this->view('classes/list', $data);
+    }
+
+    
+    public function show($id) {
+        $data = [
+            'classData' => $this->classModel->getClassById($id), 
+            'assignmentCount' => $this->assignmentModel->getAssignmentCount($id),
+            'allAssignments' => $this->assignmentModel->getAllAssignments($id),
+            'studentCount' => $this->studentModel->getStudentCount($id),
+            'allStudents' => $this->studentModel->getAllStudents($id)
+        ];
+        $this->view('classes/show', $data);
     }
 }

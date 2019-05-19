@@ -1,3 +1,16 @@
+<head>
+	<style>
+		body {
+			background-image: url(<?php echo URLROOT . '/public/images/login-bg.jpg';?>);
+			background-position: center center;
+			-webkit-background-size: cover;
+  			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+	</style>
+</head>
+
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php if (!isset($_SESSION['user_id'])) : ?>

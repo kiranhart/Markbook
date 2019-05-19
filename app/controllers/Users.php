@@ -212,8 +212,4 @@
       session_destroy();
       redirect('pages/index');
     }
-
-    public function isLoggedIn() {
-      return (isset($_SESSION['user_id'])) ? true : false;
-    }
   }
