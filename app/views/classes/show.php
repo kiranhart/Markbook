@@ -30,7 +30,7 @@
 			<h4>Students</h4>
 			<?php if ($data['studentCount'] < 1) :?>
 				<p class="lead">This class doesn't have any students.</p>
-				<p class="lead"><a href="<?php echo URLROOT . '/student/add'; ?>">Add one now</a></p>
+				<p class="lead"><a href="<?php echo URLROOT . '/classes/addstudent/' . $data['classData']->id; ?>">Add one now</a></p>
 				
 			<?php else : ?>
 				<p class="lead">Student Count: <?php echo $data['studentCount']; ?></p>

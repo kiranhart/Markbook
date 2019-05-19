@@ -25,18 +25,27 @@
         <br>
 
         <div class="row">
-            <?php foreach ($data['allClasses'] as $class) : ?>
-                <div style="max-width: 360px" class="card bg-primary text-white my-2 mx-auto col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="card-header"><?php echo $class->classname; ?></div>
-                    <div class="card-body">
-                        <p class="card-text"><strong>Class Code: </strong><?php echo $class->classcode; ?></p>
-                        <p class="card-text"><?php echo $class->classdescription; ?></p>
-                    </div>
-                    <div class="card-footer">
-                        <a role="button" href="<?php echo URLROOT . '/classes/show/' . $class->id; ?>" class="btn btn-success">View class</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+
+            <table class="table table-bordered table-striped table-responsive">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>Name</td>
+                        <td>Code</td>
+                        <td>Desc</td>
+                        <td>View</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($data['allClasses'] as $class) : ?>
+                        <tr>
+                            <td><?php echo $class->classname; ?></td>
+                            <td><?php echo $class->classcode; ?></td>
+                            <td><?php echo $class->classdescription; ?></td>
+                            <td><a role="button" href="<?php echo URLROOT . '/classes/show/' . $class->id; ?>" class="btn btn-info">More</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
 
         <hr>

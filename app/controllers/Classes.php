@@ -84,9 +84,17 @@ class Classes extends Controller {
             'classData' => $this->classModel->getClassById($id), 
             'assignmentCount' => $this->assignmentModel->getAssignmentCount($id),
             'allAssignments' => $this->assignmentModel->getAllAssignments($id),
-            'studentCount' => $this->studentModel->getStudentCount($id),
-            'allStudents' => $this->studentModel->getAllStudents($id)
+            'studentCount' => $this->studentModel->getStudentCountByClass($id),
+            'allStudents' => $this->studentModel->getAllStudentsByClass($id)
         ];
         $this->view('classes/show', $data);
+    }
+
+    public function addstudent($id) {
+        $data = [
+            'allStudents' => $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id']),
+            'classData' => $this->classModel->getClassById($id)
+        ];
+        $this->view('classes/addstudent', $data);
     }
 }

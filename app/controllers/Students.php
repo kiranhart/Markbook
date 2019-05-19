@@ -3,6 +3,11 @@
 class Students extends Controller {
 
 	public function __construct() {
+		
+		if (!isLoggedIn()) {
+			redirect('users/login');
+		}
+
 		$this->studentModel = $this->model('Student');
 		$this->classModel = $this->model('UClass');
 	}
@@ -41,10 +46,14 @@ class Students extends Controller {
 
 			if (empty($data['firstname_err']) && empty($data['lastname_err']) && empty($data['birthdate_err']) && empty($data['email_err'])) {
 				//Add the student to user account
-				
+				if ($this->studentModel->addStudent($_SESSION['user_id'], $data['firstname'], $data['lastname'], $data['birthdate'], $data['email'])) {
+					redirect('students/list');
+				} else {
+					die('Something went wrong');
+				}
 			} else {
 				//Load with errors
-				$this->view('student/add', $data);
+				$this->view('students/add', $data);
 			}
 
 		} else {
@@ -59,13 +68,16 @@ class Students extends Controller {
 				'email_err' => ''
 			];
 
-			$this->view('student/add', $data);
+			$this->view('students/add', $data);
 		}
 	}
 
 	//List
 	public function list() {
-		$data = [];
-		$this->view('student/list', $data);
+		$data = [
+			'studentCount' => $this->studentModel->getStudentCountByTeacher($_SESSION['user_id']),
+			'allStudents' => $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id'])
+		];
+		$this->view('students/list', $data);
 	}
 }
