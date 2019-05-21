@@ -89,8 +89,8 @@ class Classes extends Controller {
 
         $data = [
             'classData' => $this->classModel->getClassById($id), 
-            'assignmentCount' => $this->assignmentModel->getAssignmentCount($id),
-            'allAssignments' => $this->assignmentModel->getAllAssignments($id),
+            'assignmentCount' => $this->assignmentModel->getAssignmentCountByClass($id),
+            'allAssignments' => $this->assignmentModel->getAllAssignmentsByClass($id),
             'studentCount' => $this->studentModel->getStudentCountByClass($id),
             'allStudents' => $allStudents
         ];
