@@ -23,9 +23,8 @@
 
         <hr>
         <br>
-
         <div class="row">
-            <table class="table table-bordered table-striped">
+            <table id="studentListTable" class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <td>First Name</td>
@@ -54,7 +53,7 @@
 
         <div class="row">
             <div class="col">
-                <a href="<?php echo URLROOT . '/classes/add'; ?>" class="btn btn-primary">Create Student</a>
+                <a href="<?php echo URLROOT . '/students/add'; ?>" class="btn btn-primary">Create Student</a>
             </div>
         </div>
 
@@ -62,3 +61,6 @@
 <?php endif; ?>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+<script>
+
+</script>

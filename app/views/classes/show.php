@@ -14,26 +14,58 @@
 	<br>
 	<div class="row">
 		<div class="col text-center">
-			<h4>Assignments</h4>
-			<?php if ($data['assignmentCount'] < 1) :?>
-				<p class="lead">This class doesn't have any assignments.</p>
-				<p class="lead"><a href="<?php echo URLROOT . '/assignment/add'; ?>">Create one now!</a></p>
-				
-			<?php else : ?>
-				<p class="lead">Assignment Count: <?php echo $data['assignmentCount']; ?></p>
-			<?php endif; ?>
-		</div>
-	</div>
-	<br>
-	<div class="row">
-		<div class="col text-center">
 			<h4>Students</h4>
 			<?php if ($data['studentCount'] < 1) :?>
 				<p class="lead">This class doesn't have any students.</p>
 				<p class="lead"><a href="<?php echo URLROOT . '/classes/addstudent/' . $data['classData']->id; ?>">Add one now</a></p>
 				
 			<?php else : ?>
-				<p class="lead">Student Count: <?php echo $data['studentCount']; ?></p>
+				<br>
+				<div class="row">
+					<table class="table table-bordered table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<td>First Name</td>
+								<td>Last Name</td>
+								<td>Birthday</td>
+								<td>Email</td>
+								<td>More</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($data['allStudents'] as $student) : ?>
+							<tr>
+								<td><?php echo $student->firstname; ?></td>
+								<td><?php echo $student->lastname; ?></td>
+								<td><?php echo $student->birthdate; ?></td>
+								<td><?php echo $student->email; ?></td>
+								<td>
+									<a href="<?php echo URLROOT . '/students/report/'. $student->id;?>" class="btn btn-danger">Delete</a>
+								</td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col text-center">
+						<p class="center-text"><a href="<?php echo URLROOT . '/classes/addstudent/' . $data['classData']->id; ?>">Add another student</a></p>
+					</div>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col text-center">
+			<h4>Assignments</h4>
+			<?php if ($data['assignmentCount'] < 1) :?>
+				<p class="lead">This class doesn't have any assignments.</p>
+				<p class="lead"><a href="<?php echo URLROOT . '/assignments/add'; ?>">Create one now!</a></p>
+				
+			<?php else : ?>
+				<p class="lead">Assignment Count: <?php echo $data['assignmentCount']; ?></p>
 			<?php endif; ?>
 		</div>
 	</div>

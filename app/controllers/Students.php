@@ -72,6 +72,7 @@ class Students extends Controller {
 		}
 	}
 
+
 	//List
 	public function list() {
 		$data = [

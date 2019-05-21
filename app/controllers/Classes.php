@@ -80,21 +80,62 @@ class Classes extends Controller {
 
     
     public function show($id) {
+
+        $studentList =$this->studentModel->getAllStudentsByClass($id);
+        $allStudents = array();
+        foreach ($studentList as $singleStudent) {
+            array_push($allStudents, $this->studentModel->getStudent($singleStudent->studentid));
+        }
+
         $data = [
             'classData' => $this->classModel->getClassById($id), 
             'assignmentCount' => $this->assignmentModel->getAssignmentCount($id),
             'allAssignments' => $this->assignmentModel->getAllAssignments($id),
             'studentCount' => $this->studentModel->getStudentCountByClass($id),
-            'allStudents' => $this->studentModel->getAllStudentsByClass($id)
+            'allStudents' => $allStudents
         ];
         $this->view('classes/show', $data);
     }
 
     public function addstudent($id) {
-        $data = [
-            'allStudents' => $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id']),
-            'classData' => $this->classModel->getClassById($id)
-        ];
-        $this->view('classes/addstudent', $data);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'allStudents' => $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id']),
+                'classData' => $this->classModel->getClassById($id),
+                'student' => trim($_POST['student']),
+                'student_err' => ''
+            ];
+
+            if (empty($data['student'])) {
+                $data['student_err'] = 'Please select a student';
+            }
+
+            if (empty($data['student_err'])) {
+                if ($this->studentModel->isStudentInClass($data['student'], $data['classData']->id)) {
+                    redirect('classes/addstudent/' . $data['classData']->id);
+                } else {
+                    if ($this->studentModel->addStudentToClass($data['classData']->id, $data['student'])) {
+                        redirect('classes/show/' . $data['classData']->id);
+                    } else {
+                        die("Something went wrong!");
+                    }
+                }
+            } else {
+                //Load with errors
+                $this->view('classes/addstudent', $data);
+            }
+
+        } else {
+            $data = [
+                'allStudents' => $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id']),
+                'classData' => $this->classModel->getClassById($id),
+                'student' => '',
+                'student_err' => ''
+            ];
+            $this->view('classes/addstudent', $data);
+        }
     }
 }

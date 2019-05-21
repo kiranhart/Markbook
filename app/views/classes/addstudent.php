@@ -6,7 +6,7 @@
             <div class="card card-body bg-light mt-5">
                 <h2 class="text-center"><?php echo $data['classData']->classname; ?></h2>
                 <p class="text-center lead">Select a student to add to class</p>
-                <form action="<?php echo URLROOT . '/classes/addstudent'; ?>" method="post">
+                <form action="<?php echo URLROOT . '/classes/addstudent/' . $data['classData']->id; ?>" method="post">
                     
                     <!-- First / Last Name Input -->
 
@@ -19,6 +19,12 @@
                         </select>
                     </div>
 
+                    <!-- Confirm Buttons -->
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" value="Add" style="width: 50%; margin: 0 auto;" class="btn btn-success btn-block">
+                        </div>
+                    </div>
 
                 </form>
             </div>
