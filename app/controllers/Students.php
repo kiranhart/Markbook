@@ -72,6 +72,18 @@ class Students extends Controller {
 		}
 	}
 
+	//Remove
+	public function remove($id) {
+
+		$data = [];
+
+		if ($this->studentModel->removeStudent($id)) {
+			$this->view('students/remove', $data);
+
+		} else {
+			redirect('students/list');
+		}
+	}
 
 	//List
 	public function list() {

@@ -40,7 +40,7 @@
 								<td><?php echo $student->birthdate; ?></td>
 								<td><?php echo $student->email; ?></td>
 								<td>
-									<a href="<?php echo URLROOT . '/students/report/'. $student->id;?>" class="btn btn-danger">Delete</a>
+									<a href="<?php echo URLROOT . '/classes/removestudent/'. $data['classData']->id;?>" class="btn btn-danger">Delete</a>
 								</td>
 							</tr>
 							<?php endforeach; ?>

@@ -41,7 +41,16 @@
                         <td><?php echo $student->lastname; ?></td>
                         <td><?php echo $student->birthdate; ?></td>
                         <td><?php echo $student->email; ?></td>
-                        <td><a href="<?php echo URLROOT . '/students/show/'. $student->id;?>" class="btn btn-info">More</a></td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="<?php echo URLROOT . '/students/show/'. $student->id;?>" class="btn btn-info">More</a>
+                                </div>
+                                <div class="col">
+                                    <a href="<?php echo URLROOT . '/students/remove/'. $student->id;?>" class="btn btn-danger">Remove</a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -53,10 +62,11 @@
 
         <div class="row">
             <div class="col">
-                <a href="<?php echo URLROOT . '/students/add'; ?>" class="btn btn-primary">Create Student</a>
+                <a href="<?php echo URLROOT . '/students/add'; ?>" class="btn btn-info">Create Student</a>
             </div>
         </div>
 
+        <br>
     </div>
 <?php endif; ?>
 

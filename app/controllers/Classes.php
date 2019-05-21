@@ -138,4 +138,51 @@ class Classes extends Controller {
             $this->view('classes/addstudent', $data);
         }
     }
+
+    public function removestudent($id) {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'allStudents' => $this->studentModel->getAllStudentsByClass($id),
+                'classData' => $this->classModel->getClassById($id),
+                'student' => trim($_POST['student']),
+                'student_err' => ''
+            ];
+
+            if (empty($data['student'])) {
+                $data['student_err'] = 'Please select a student';
+            }
+
+            if (empty($data['student_err'])) {
+                if ($this->studentModel->isStudentInClass($data['student'], $data['classData']->id)) {
+                    if ($this->studentModel->removeStudentFromClass($data['classData']->id, $data['student'])) {
+                        redirect('classes/show/' . $data['classData']->id);
+                    } else {
+                        die("Something went wrong!");
+                    }
+                } 
+            } else {
+                //Load with errors
+                $this->view('classes/removestudent', $data);
+            }
+
+        } else {
+
+            $students = array();
+
+            foreach($this->studentModel->getAllStudentsByClass($id) as $ss) {
+                array_push($students, $this->studentModel->getStudent($ss->studentid));
+            }
+
+            $data = [
+                'allStudents' => $students,
+                'classData' => $this->classModel->getClassById($id),
+                'student' => '',
+                'student_err' => ''
+            ];
+            $this->view('classes/removestudent', $data);
+        }
+    }
 }

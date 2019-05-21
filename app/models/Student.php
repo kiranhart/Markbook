@@ -24,6 +24,12 @@ class Student {
         }
     }
 
+    public function removeStudent($id) {
+        $this->db->query('DELETE FROM student WHERE id = :id');
+        $this->db->bind(':id', $id);
+        return ($this->db->execute()) ? true : false;
+    }
+
     //Get student
     public function getStudent($id) {
         $this->db->query('SELECT * FROM student WHERE id = :id');
@@ -89,4 +95,15 @@ class Student {
             return false;
         }
     }
+    //Remove student from class
+    public function removeStudentFromClass($classId, $studentId) {
+        $this->db->query('DELETE FROM class_students WHERE classid = :classid AND studentid = :studentid');
+        $this->db->bind(':classid', $classId);
+        $this->db->bind(':studentid', $studentId);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
 }
