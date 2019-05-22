@@ -18,7 +18,6 @@
 			<?php if ($data['studentCount'] < 1) :?>
 				<p class="lead">This class doesn't have any students.</p>
 				<p class="lead"><a href="<?php echo URLROOT . '/classes/addstudent/' . $data['classData']->id; ?>">Add one now</a></p>
-				
 			<?php else : ?>
 				<br>
 				<div class="row">
@@ -40,7 +39,14 @@
 								<td><?php echo $student->birthdate; ?></td>
 								<td><?php echo $student->email; ?></td>
 								<td>
-									<a href="<?php echo URLROOT . '/classes/removestudent/'. $data['classData']->id;?>" class="btn btn-danger">Delete</a>
+									<div class="row">
+										<div class="col">
+											<a href="<?php echo URLROOT . '/classes/removestudent/'. $data['classData']->id;?>" class="btn btn-danger">Delete</a>
+										</div>
+										<div class="col">
+											<a href="<?php echo URLROOT . '/classes/student/' . $data['classData']->id . '/' . $student->id; ?>" class="btn btn-info">View</a>
+										</div>
+									</div>
 								</td>
 							</tr>
 							<?php endforeach; ?>

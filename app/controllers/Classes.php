@@ -97,6 +97,56 @@ class Classes extends Controller {
         $this->view('classes/show', $data);
     }
 
+    public function student($classid, $studentid) {
+        $classData = $this->classModel->getClassById($classid);
+        $studentData = $this->studentModel->getStudent($studentid);
+        $allAssignments = $this->assignmentModel->getAllAssignmentsByClass($classid);
+        $assignmentResults = $this->assignmentModel->getAllAssignmentResultsFromStudent($classid, $studentid);
+        $resultCount = $this->assignmentModel->getAssignmentResultCountFromStudent($classid, $studentid);
+
+        $data =  [
+            'classData' => $classData,
+            'studentData' => $studentData,
+            'allAssignments' => $allAssignments,
+            'assignmentResults' => $assignmentResults,
+            'assignmentResultCount' => $resultCount
+        ];
+        
+        $this->view('classes/student', $data);
+    }
+
+    public function addmark($classid, $studentid) {
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            
+            $assignmentID = $_POST['assignment'];
+
+            $data = [
+                'classData' => $this->classModel->getClassById($classid),
+                'studentData' => $this->studentModel->getStudent($studentid),
+                'assignmentId' => $assignmentID,
+                'assignmentData' => $this->assignmentModel->getAssignment($assignmentID),
+                'marks' => trim($_POST['marks']),
+                'marks_err' => '',
+                'late' => trim($_POST['late']),
+                'late_err' => ''
+            ];
+
+            if (empty($data['marks'])) {
+                $data['marks_err'] = "Please enter a mark";
+            }
+
+            if (empty($data['late'])) {
+                $data['late_err'] = "Please select if assignment was late";
+            }
+
+        } else {
+            redirect('classes/student/' . $classid . '/' . $studentid);
+        }
+    }
+
     public function addstudent($id) {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

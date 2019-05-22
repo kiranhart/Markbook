@@ -28,10 +28,11 @@ class Assignment {
     }
 
     //Add assignment result
-    public function addAssignmentResult($id, $teacherid, $studentid, $totalmarks, $late) {
-        $this->db->query('INSERT INTO assignment_result (assignmentid, teacherid, studentid, totalmarks, late) VALUES (:assignmentid, :teacherid, :studentid, :totalmarks, :late)');
+    public function addAssignmentResult($id, $teacherid, $classid, $studentid, $totalmarks, $late) {
+        $this->db->query('INSERT INTO assignment_result (assignmentid, teacherid, classid, studentid, totalmarks, late) VALUES (:assignmentid, :teacherid, :classid, :studentid, :totalmarks, :late)');
         $this->db->bind(':assignmentid', $id);
         $this->db->bind(':teacherid', $teacherid);
+        $this->db->bind(':classid', $classid);
         $this->db->bind(':studentid', $studentid);
         $this->db->bind(':totalmarks', $totalmarks);
         $this->db->bind(':late', $late);
@@ -66,6 +67,32 @@ class Assignment {
         $this->db->query(':id', $id);
         $this->db->query(':totalmarks', $totalMarks);
         $this->db->query(':late', $late);
+    }
+
+    //Get single assignment from id
+    public function getAssignment($id) {
+        $this->db->query('SELECT * FROM assignment WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->single();
+        return $row;
+    }
+
+    //Get all assignment results of a student in class
+    public function getAllAssignmentResultsFromStudent($classid, $studentid) {
+        $this->db->query('SELECT * FROM assignment_result WHERE classid = :classid AND studentid = :studentid');
+        $this->db->bind(':classid', $classid);
+        $this->db->bind(':studentid', $studentid);
+        $data = $this->db->resultSet();
+        return $data;
+    }
+
+    //Get assignment result count of student
+    public function getAssignmentResultCountFromStudent($classid, $studentid) {
+        $this->db->query('SELECT * FROM assignment_result WHERE classid = :classid AND studentid = :studentid');
+        $this->db->bind(':classid', $classid);
+        $this->db->bind(':studentid', $studentid);
+        $rows = $this->db->single();
+        return ($this->db->rowCount() > 0) ? $this->db->rowCount() : 0;
     }
 
     //Check if there is any assignemnts under that class id
