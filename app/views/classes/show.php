@@ -65,7 +65,35 @@
 				<p class="lead"><a href="<?php echo URLROOT . '/assignments/add'; ?>">Create one now!</a></p>
 				
 			<?php else : ?>
-				<p class="lead">Assignment Count: <?php echo $data['assignmentCount']; ?></p>
+				<br>
+				<div class="row">
+					<table class="table table-bordered table-striped">
+						<thead class="thead-dark">
+							<tr>
+								<td>Name</td>
+								<td>Description</td>
+								<td>Marks</td>
+								<td>Weight</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($data['allAssignments'] as $assignments) : ?>
+							<tr>
+								<td><?php echo $assignments->name; ?></td>
+								<td><?php echo $assignments->description; ?></td>
+								<td><?php echo $assignments->marks; ?></td>
+								<td><?php echo $assignments->weight; ?></td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col text-center">
+						<p class="center-text"><a href="<?php echo URLROOT . '/assignments/add'; ?>">Add another assignment</a></p>
+					</div>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>

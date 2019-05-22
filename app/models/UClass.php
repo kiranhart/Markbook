@@ -46,6 +46,14 @@ class UClass {
         $data = $this->db->resultSet();
         return $data;
     }
+
+    //Get all of the classes by an id
+    public function getAllClassesById($id) {
+        $this->db->query('SELECT * FROM class WHERE ownerid = :id');
+        $this->db->bind(':id', $id);
+        $data = $this->db->resultSet();
+        return $data;
+    }
     
     //Get the class by id
     public function getClassById($id) {

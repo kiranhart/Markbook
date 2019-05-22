@@ -26,7 +26,7 @@
 
         <div class="row">
 
-            <table class="table table-bordered table-striped table-responsive">
+            <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <td>Name</td>
