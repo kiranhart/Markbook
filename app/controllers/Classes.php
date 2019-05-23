@@ -115,35 +115,61 @@ class Classes extends Controller {
         $this->view('classes/student', $data);
     }
 
-    public function addmark($classid, $studentid) {
-        
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    public function addmark($classid, $studentid, $assignmentid) {
 
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $classData = $this->classModel->getClassById($classid);
+        $studentData = $this->studentModel->getStudent($studentid);
+        $assignmentData = $this->assignmentModel->getAssignment($assignmentid);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
             
-            $assignmentID = $_POST['assignment'];
-
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data = [
-                'classData' => $this->classModel->getClassById($classid),
-                'studentData' => $this->studentModel->getStudent($studentid),
-                'assignmentId' => $assignmentID,
-                'assignmentData' => $this->assignmentModel->getAssignment($assignmentID),
+                'classData' => $classData,
+                'studentData' => $studentData,
+                'assignmentData' => $assignmentData,
                 'marks' => trim($_POST['marks']),
-                'marks_err' => '',
                 'late' => trim($_POST['late']),
-                'late_err' => ''
+                'marks_err' => ''
             ];
 
             if (empty($data['marks'])) {
-                $data['marks_err'] = "Please enter a mark";
+                $data['marks_err'] = "Please enter total marks";
             }
 
-            if (empty($data['late'])) {
-                $data['late_err'] = "Please select if assignment was late";
+            if (empty($data['marks_err'])) {
+
+                //Is there already assignment results?
+                if ($this->assignmentModel->doesAssignmentResultExist($assignmentid, $classid, $studentid)) {
+                    if ($this->assignmentModel->updateAssignmentResultByData($assignmentid, $classid, $studentid, $data['marks'], $data['late'])) {
+                        redirect('classes/student/' . $classid . '/' . $studentid);
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, $data['marks'], $data['late'])) {
+                        redirect('classes/student/' . $classid . '/' . $studentid);
+                    } else {
+                        die('Something went wrong');
+                    }
+                }
+
+            } else {
+                //Load with errors
+                $this->view('classes/addmark', $data);
             }
 
         } else {
-            redirect('classes/student/' . $classid . '/' . $studentid);
+            $data = [
+                'classData' => $classData,
+                'studentData' => $studentData,
+                'assignmentData' => $assignmentData,
+                'marks' => '',
+                'late' => '',
+                'marks_err' => ''
+            ];
+
+            $this->view('classes/addmark', $data);
         }
     }
 

@@ -7,30 +7,44 @@
     <br>
     <div class="row">
         <div class="col text-center">
-            <h4>Assignment Results</h4>
             
             <?php if ($data['assignmentResultCount'] < 1) : ?>
+                <h4>No Results</h4>
                 <p class="lead ">This student doesn't have any assignment marks.</p>  
                 <div class="col md-6-mx-auto">
-                    <form action="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id .  '/' . $data['studentData']->id; ?>" method="post">
+                    <form action="<?php echo URLROOT . 'classes/student/' . $data['classData']->id . '/' . $data['studentData']->id; ?>" method="post">
                         <div class="form-group">
-                            <label for="assignment">Assignment</label>
-                            <select name="assignment" id="assignment" class="custom-select">
-                                <?php foreach($data['allAssignments'] as $assignment) : ?>
-                                    <option value="<?php echo $assignment->id; ?>"><?php echo $assignment->name?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                            <input type="submit" value="Add Mark" style="width: 25%; margin: 0 auto;" class="btn btn-success btn-block">
-                            </div>
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Description</td>
+                                        <td>Score</td>
+                                        <td>Total Marks</td>
+                                        <td>Weight</td>
+                                        <td>More</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($data['allAssignments'] as $assignment) : ?>
+                                        <tr>
+                                            <td><?php echo $assignment->name; ?></td>
+                                            <td><?php echo $assignment->description; ?></td>
+                                            <td>0</td>
+                                            <td><?php echo $assignment->marks; ?></td>
+                                            <td><?php echo $assignment->weight; ?></td>
+                                            <td><a href="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id . '/' . $data['studentData']->id . '/' . $assignment->id; ?>" class="btn btn-info">Add Marks</a></td>
+                                        </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
                         </div>
                     </form>
                 </div>
             <?php else : ?>
                 <br>
+                <h4>Assignment Results</h4>
+                <p class="lead">Listing marked assignments</p>
                 <div class="row">
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
@@ -41,12 +55,57 @@
                                 <td>Total Marks</td>
                                 <td>Weight</td>
                                 <td>Late</td>
+                                <td>More</td>
                             </tr>
                         </thead>
                         <tbody>
-                           
+                            <?php foreach ($data['allAssignments'] as $assignment) : ?>
+                                <?php foreach($data['assignmentResults'] as $result) : ?>
+                                    <?php if ($assignment->id == $result->assignmentid) : ?>
+                                        <tr>
+                                            <td><?php echo $assignment->name; ?></td>
+                                            <td><?php echo $assignment->description; ?></td>
+                                            <td><?php echo $result->totalmarks;?></td>
+                                            <td><?php echo $assignment->marks; ?></td>
+                                            <td><?php echo $assignment->weight; ?></td>
+                                            <td><?php echo ($result->late == 0) ? 'Not Late' : 'Late'; ?></td>
+                                            <td><a href="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id . '/' . $data['studentData']->id . '/' . $assignment->id; ?>" class="btn btn-info">Edit</a></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach;?>
+                            <?php endforeach;?>
                         </tbody>
                     </table>
+                </div>
+                <hr>
+                <br>
+                <h4>Unmarked Assignments</h4>
+                <p class="lead">Listing assignments that are missing marks.</p>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-bordered table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Description</td>
+                                    <td>Score</td>
+                                    <td>Total Marks</td>
+                                    <td>Weight</td>
+                                    <td>More</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                
+                                $allAssignments = $data['allAssignments'];
+                                $allResults = $data['assignmentResults'];
+                          
+                               
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>

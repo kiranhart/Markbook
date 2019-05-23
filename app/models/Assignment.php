@@ -52,7 +52,7 @@ class Assignment {
         $this->db->bind(':description', $desc);
         $this->db->bind(':marks', $marks);
         $this->db->bind(':weight', $weight);
-        $this->db->bind(':duedate', $due);
+        $this->db->bind(':duedate', $duedate);
 
         if ($this->db->execute()) {
             return true;
@@ -64,9 +64,30 @@ class Assignment {
     //Update assignment results
     public function updateAssignmentResult($id, $totalMarks, $late) {
         $this->db->query('UPDATE assignment_result SET totalmarks = :totalmarks, late = :late WHERE id = :id');
-        $this->db->query(':id', $id);
-        $this->db->query(':totalmarks', $totalMarks);
-        $this->db->query(':late', $late);
+        $this->db->bind(':id', $id);
+        $this->db->bind(':totalmarks', $totalMarks);
+        $this->db->bind(':late', $late);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Update results by assignment id, class id, student id
+    public function updateAssignmentResultByData($assignmentid, $classid, $studentid, $totalmarks, $late) {
+        $this->db->query('UPDATE assignment_result SET totalmarks = :totalmarks, late = :late WHERE assignmentid = :assignmentid AND classid = :classid AND studentid = :studentid');
+        $this->db->bind(':totalmarks', $totalmarks);
+        $this->db->bind(':late', $late);
+        $this->db->bind(':assignmentid', $assignmentid);
+        $this->db->bind(':studentid', $studentid);
+        $this->db->bind(':classid', $classid);
+        
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Get single assignment from id
@@ -124,5 +145,19 @@ class Assignment {
         $this->db->bind(':id', $id);
         $data = $this->db->resultSet();
         return $data;
+    }
+
+    //Check if assignment result exist
+    public function doesAssignmentResultExist($assignmentId, $classId, $studentId) {
+        $this->db->query('SELECT * FROM assignment_result WHERE assignmentid = :assignmentid AND classid = :classid AND studentid = :studentid');
+        $this->db->bind(':assignmentid', $assignmentId);
+        $this->db->bind(':studentid', $studentId);
+        $this->db->bind(':classid', $classId);
+        $row = $this->db->single();
+        if ($this->db->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

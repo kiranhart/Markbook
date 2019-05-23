@@ -40,7 +40,7 @@
 								<td><?php echo $student->email; ?></td>
 								<td>
 									<div class="row">
-										<div class="col">
+										<div class="col ">
 											<a href="<?php echo URLROOT . '/classes/removestudent/'. $data['classData']->id;?>" class="btn btn-danger">Delete</a>
 										</div>
 										<div class="col">
