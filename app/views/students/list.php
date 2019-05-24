@@ -43,9 +43,9 @@
                         <td><?php echo $student->email; ?></td>
                         <td>
                             <div class="row">
-                                <div class="col">
+                                <!-- <div class="col">
                                     <a href="<?php echo URLROOT . '/students/show/'. $student->id;?>" class="btn btn-info">More</a>
-                                </div>
+                                </div> -->
                                 <div class="col">
                                     <a href="<?php echo URLROOT . '/students/remove/'. $student->id;?>" class="btn btn-danger">Remove</a>
                                 </div>
@@ -72,5 +72,4 @@
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
-
 </script>

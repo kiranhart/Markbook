@@ -78,8 +78,11 @@ class Students extends Controller {
 		$data = [];
 
 		if ($this->studentModel->removeStudent($id)) {
-			$this->view('students/remove', $data);
-
+			if ($this->studentModel->removeStudentFromAllClasses($id)) {
+				$this->view('students/remove', $data);
+			} else {
+				$this->view('students/remove', $data);
+			}
 		} else {
 			redirect('students/list');
 		}

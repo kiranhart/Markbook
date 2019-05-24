@@ -39,8 +39,8 @@
 							<div class="form-group">
 								<label for="late">Late:</label>
 								<select name="late" id="late" class="custom-select" value="<?php echo $data['late'] ?>">
-									<option value="1">Late</option>
 									<option value="0">Not Late</option>
+									<option value="1">Late</option>
 								</select>
 								<span class="invalid-feedback"><?php echo $data['late_err']; ?></span>
 							</div>

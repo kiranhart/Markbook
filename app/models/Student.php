@@ -30,6 +30,12 @@ class Student {
         return ($this->db->execute()) ? true : false;
     }
 
+    public function removeStudentFromAllClasses($id) {
+        $this->db->query('DELETE FROM class_students WHERE studentid = :id');
+        $this->db->bind(':id', $id);
+        return ($this->db->execute()) ? true : false;
+    }
+
     //Get student
     public function getStudent($id) {
         $this->db->query('SELECT * FROM student WHERE id = :id');
@@ -64,7 +70,7 @@ class Student {
 
     //Get all of the students by teacher id
     public function getAllStudentsByTeacher($id) {
-        $this->db->query('SELECT * FROM student WHERE teacherid = :id');
+        $this->db->query('SELECT * FROM student WHERE teacherid = :id ORDER BY lastname');
         $this->db->bind(':id', $id);
         $data = $this->db->resultSet();
         return $data;

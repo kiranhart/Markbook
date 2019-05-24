@@ -6,9 +6,6 @@
         <h3>Account Settings</h3>
         <hr>
     </div>
-    <div class="row">
-
-    </div>
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

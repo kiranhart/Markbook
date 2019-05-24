@@ -1,3 +1,6 @@
+<?php if (isLoggedIn()) : ?>
+    <div style="background-color:#020f23; color: white; width: 100%; margin: 0; padding: 0;" class="text-center">Markbook development in progress by Kiran Hart</div>
+<?php endif; ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a href="<?php echo (isLoggedIn()) ? URLROOT . '/users/home' : URLROOT; ?>" class="navbar-brand">
