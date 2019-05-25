@@ -58,7 +58,7 @@
 
         <div class="row">
             <div class="col">
-                <a href="<?php echo URLROOT . '/students/add'; ?>" class="btn btn-info">Create Assignment</a>
+                <a href="<?php echo URLROOT . '/assignments/add'; ?>" class="btn btn-info">Create Assignment</a>
             </div>
         </div>
 
