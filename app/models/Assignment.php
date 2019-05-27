@@ -9,14 +9,18 @@ class Assignment {
     }
     
     //Add assignment to class
-    public function addAssignment($teacherid, $classid, $name, $desc, $marks, $weight, $assignedDate, $due) {
-        $this->db->query('INSERT INTO assignment (teacherid, classid, name, description, marks, weight, assigneddate, duedate) VALUES (:teacherid, :classid, :name, :description, :marks, :weight, :assigneddate, :duedate)');
+    public function addAssignment($teacherid, $classid, $name, $desc, $marks, $weight, $knowledge, $thinking, $application, $communication, $assignedDate, $due) {
+        $this->db->query('INSERT INTO assignment (teacherid, classid, name, description, marks, weight, knowledge, thinking, application, communication, assigneddate, duedate) VALUES (:teacherid, :classid, :name, :description, :marks, :weight, :knowledge, :thinking, :application, :communication, :assigneddate, :duedate)');
         $this->db->bind(':teacherid', $teacherid);
         $this->db->bind(':classid', $classid);
         $this->db->bind(':name', $name);
         $this->db->bind(':description', $desc);
         $this->db->bind(':marks', $marks);
         $this->db->bind(':weight', $weight);
+        $this->db->bind(':knowledge', $knowledge);
+        $this->db->bind(':thinking', $thinking);
+        $this->db->bind(':application', $application);
+        $this->db->bind(':communication', $communication);
         $this->db->bind(':assigneddate', $assignedDate);
         $this->db->bind(':duedate', $due);
 
@@ -28,13 +32,17 @@ class Assignment {
     }
 
     //Add assignment result
-    public function addAssignmentResult($id, $teacherid, $classid, $studentid, $totalmarks, $late) {
-        $this->db->query('INSERT INTO assignment_result (assignmentid, teacherid, classid, studentid, totalmarks, late) VALUES (:assignmentid, :teacherid, :classid, :studentid, :totalmarks, :late)');
+    public function addAssignmentResult($id, $teacherid, $classid, $studentid, $totalmarks, $knowledge, $thinking, $application, $communication, $late) {
+        $this->db->query('INSERT INTO assignment_result (assignmentid, teacherid, classid, studentid, totalmarks, knowledge, thinking, application, communication, late) VALUES (:assignmentid, :teacherid, :classid, :studentid, :totalmarks, :knowledge, :thinking, :application, :communication, :late)');
         $this->db->bind(':assignmentid', $id);
         $this->db->bind(':teacherid', $teacherid);
         $this->db->bind(':classid', $classid);
         $this->db->bind(':studentid', $studentid);
         $this->db->bind(':totalmarks', $totalmarks);
+        $this->db->bind(':knowledge', $knowledge);
+        $this->db->bind(':thinking', $thinking);
+        $this->db->bind(':application', $application);
+        $this->db->bind(':communication', $communication);
         $this->db->bind(':late', $late);
         
         if ($this->db->execute()) {
@@ -45,13 +53,17 @@ class Assignment {
     }
 
     //Update assignment data
-    public function updateAssignment($id, $name, $desc, $marks, $weight, $duedate) {
-        $this->db->query('UPDATE assignment SET name = :name, description = :description, marks = :marks, weight = :weight, duedate = :duedate WHERE id = :id');
+    public function updateAssignment($id, $name, $desc, $marks, $weight, $knowledge, $thinking, $application, $communication, $duedate) {
+        $this->db->query('UPDATE assignment SET name = :name, description = :description, marks = :marks, weight = :weight, knowledge = :knowledge, thinking = :thinking, application = :application, communication = :communication duedate = :duedate WHERE id = :id');
         $this->db->bind(':id', $id);
         $this->db->bind(':name', $name);
         $this->db->bind(':description', $desc);
         $this->db->bind(':marks', $marks);
         $this->db->bind(':weight', $weight);
+        $this->db->bind(':knowledge', $knowledge);
+        $this->db->bind(':thinking', $thinking);
+        $this->db->bind(':application', $application);
+        $this->db->bind(':communication', $communication);
         $this->db->bind(':duedate', $duedate);
 
         if ($this->db->execute()) {
@@ -62,10 +74,14 @@ class Assignment {
     }
 
     //Update assignment results
-    public function updateAssignmentResult($id, $totalMarks, $late) {
-        $this->db->query('UPDATE assignment_result SET totalmarks = :totalmarks, late = :late WHERE id = :id');
+    public function updateAssignmentResult($id, $totalMarks, $knowledge, $thinking, $application, $communication, $late) {
+        $this->db->query('UPDATE assignment_result SET totalmarks = :totalmarks, knowledge = :knowledge, thinking = :thinking, application = :application, communication = :communication, late = :late WHERE id = :id');
         $this->db->bind(':id', $id);
         $this->db->bind(':totalmarks', $totalMarks);
+        $this->db->bind(':knowledge', $knowledge);
+        $this->db->bind(':thinking', $thinking);
+        $this->db->bind(':application', $application);
+        $this->db->bind(':communication', $communication);
         $this->db->bind(':late', $late);
         if ($this->db->execute()) {
             return true;
@@ -75,9 +91,13 @@ class Assignment {
     }
 
     //Update results by assignment id, class id, student id
-    public function updateAssignmentResultByData($assignmentid, $classid, $studentid, $totalmarks, $late) {
-        $this->db->query('UPDATE assignment_result SET totalmarks = :totalmarks, late = :late WHERE assignmentid = :assignmentid AND classid = :classid AND studentid = :studentid');
+    public function updateAssignmentResultByData($assignmentid, $classid, $studentid, $totalmarks, $knowledge, $thinking, $application, $communication, $late) {
+        $this->db->query('UPDATE assignment_result SET totalmarks = :totalmarks, knowledge = :knowledge, thinking = :thinking, application = :application, communication = :communication, late = :late WHERE assignmentid = :assignmentid AND classid = :classid AND studentid = :studentid');
         $this->db->bind(':totalmarks', $totalmarks);
+        $this->db->bind(':knowledge', $knowledge);
+        $this->db->bind(':thinking', $thinking);
+        $this->db->bind(':application', $application);
+        $this->db->bind(':communication', $communication);
         $this->db->bind(':late', $late);
         $this->db->bind(':assignmentid', $assignmentid);
         $this->db->bind(':studentid', $studentid);

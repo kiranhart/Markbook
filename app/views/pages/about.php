@@ -3,7 +3,7 @@
 <div class="container">
     <div class="jumbotron center text-center">
         <h1 class="display-3">About Markbook</h1>
-        <p class="lead">
+        <p class="font-weight-normal">
         Markbook was designed to manage student grades in an easy to use way. With Markbook you can access your class 
         information anywhere in the world. Along with the web system, we offer a individual program which intergrates 
         with all of your existing information from the web-interface.
@@ -15,8 +15,7 @@
             <h4>Version</h4>
             <p>Running v<?php echo VERSION; ?></p>
         </div>
-        <div class="col-lg-6">
-        </div>
+        <button class="btn btn-rounded btn-light-green">Test Button</button>
     </div>
 </div>
 
