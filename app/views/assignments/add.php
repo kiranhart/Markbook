@@ -35,6 +35,40 @@
 						</div>
 					</div>
 					<div class="form-row">
+						<div class="col-12 col-sm-12 col-md col-lg col-xl">
+                            <!-- Knowledge -->
+                            <div class="form-group">
+                                <label for="assignmentknowledge">Knowledge: <sup>*</sup></label>
+                                <input type="number" min="0" name="assignmentknowledge" class="form-control <?php echo (!empty($data['assignmentknowledge_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['assignmentknowledge']; ?>">
+                                <span class="invalid-feedback"><?php echo $data['assignmentknowledge_err']; ?></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md col-lg col-xl">
+                            <!-- Thinking -->
+                            <div class="form-group">
+                                <label for="assignmentthinking">Thinking: <sup>*</sup></label>
+                                <input type="number" min="0" name="assignmentthinking" class="form-control <?php echo (!empty($data['assignmentthinking_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['assignmentthinking']; ?>">
+                                <span class="invalid-feedback"><?php echo $data['assignmentthinking_err']; ?></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md col-lg col-xl">
+                            <!-- Application -->
+                            <div class="form-group">
+                                <label for="assignmentapplication">Application: <sup>*</sup></label>
+                                <input type="number" min="0" name="assignmentapplication" class="form-control <?php echo (!empty($data['assignmentapplication_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['assignmentapplication']; ?>">
+                                <span class="invalid-feedback"><?php echo $data['assignmentapplication_err']; ?></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md col-lg col-xl">
+                            <!-- Communication -->
+                            <div class="form-group">
+                                <label for="assignmentcommunication">Communication: <sup>*</sup></label>
+                                <input type="number" min="0" name="assignmentcommunication" class="form-control <?php echo (!empty($data['assignmentcommunication_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['assignmentcommunication']; ?>">
+                                <span class="invalid-feedback"><?php echo $data['assignmentcommunication_err']; ?></span>
+                            </div>
+                        </div>
+					</div>
+					<div class="form-row">
 						<div class="col">
 							<div class="form-group">
 								<label for="assigneddate">Assigned Date: <sup>*</sup></label>

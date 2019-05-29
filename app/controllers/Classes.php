@@ -21,6 +21,14 @@ class Classes extends Controller {
                 'classname' => trim($_POST['classname']),
                 'classcode' => trim($_POST['classcode']),
                 'classdescription' => trim($_POST['classdescription']),
+                'classknowledge' => trim($_POST['classknowledge']),
+                'classthinking' => trim($_POST['classthinking']),
+                'classapplication' => trim($_POST['classapplication']),
+                'classcommunication' => trim($_POST['classcommunication']),
+                'classknowledge_err' => '',
+                'classthinking_err' => '',
+                'classapplication_err' => '',
+                'classcommunication_err' => '',
                 'classname_err' => '',
                 'classcode_err' => '',
                 'classdescription_err' => ''
@@ -38,9 +46,39 @@ class Classes extends Controller {
                 $data['classdescription_err'] = 'Please enter a class description';
             }
 
-            if (empty($data['classname_err']) && empty($data['classcode_err']) && empty($data['classdescription_err'])) {
+            if (empty($data['classknowledge'])) {
+                $data['classknowledge_err'] = "Please enter knowledge %";
+            }
+
+            if (empty($data['classthinking'])) {
+                $data['classthinking_err'] = "Please enter thinking %";
+            }
+
+            if (empty($data['classapplication'])) {
+                $data['classapplication_err'] = "Please enter application %";
+            }
+
+            if (empty($data['classcommunication'])) {
+                $data['classcommunication_err'] = "Please enter communication %";
+            }
+
+            $kr = (empty($data['classknowledge'])) ? 0 : $data['classknowledge'];
+            $tr = (empty($data['classthinking'])) ? 0 : $data['classthinking'];
+            $ar = (empty($data['classapplication'])) ? 0 : $data['classapplication'];
+            $cr = (empty($data['classcommunication'])) ? 0 : $data['classcommunication'];
+
+            if (($kr + $tr + $ar + $cr) != 70) {
+                $data['classknowledge_err'] = "K.T.A.C Must total to 70%";
+                $data['classthinking_err'] = "K.T.A.C Must total to 70%";
+                $data['classapplication_err'] = "K.T.A.C Must total to 70%";
+                $data['classcommunication_err'] = "K.T.A.C Must total to 70%";
+            } else {
+                $data['classknowledge'] = "ddd";
+            }
+
+            if (empty($data['classname_err']) && empty($data['classcode_err']) && empty($data['classdescription_err']) && empty($data['classknowledge_err']) && empty($data['classthinking_err']) && empty($data['classapplication_err']) && empty($data['classcommunication_err'])) {
                 //Add the class
-                if ($this->classModel->createClass($_SESSION['user_id'], $_SESSION['user_email'], $data['classname'], $data['classcode'], $data['classdescription'])) {
+                if ($this->classModel->createClass($_SESSION['user_id'], $_SESSION['user_email'], $data['classname'], $data['classcode'], $data['classdescription'], $kr, $tr, $ar, $cr, 30)) {
                     redirect('classes/list');
                 } else {
                     die("Something went wrong");
@@ -55,6 +93,14 @@ class Classes extends Controller {
                 'classname' => '',
                 'classcode' => '',
                 'classdescription' => '',
+                'classknowledge' => '',
+                'classthinking' => '',
+                'classapplication' => '',
+                'classcommunication' => '',
+                'classknowledge_err' => '',
+                'classthinking_err' => '',
+                'classapplication_err' => '',
+                'classcommunication_err' => '',
                 'classname_err' => '',
                 'classcode_err' => '',
                 'classdescription_err' => ''
@@ -129,25 +175,49 @@ class Classes extends Controller {
                 'studentData' => $studentData,
                 'assignmentData' => $assignmentData,
                 'marks' => trim($_POST['marks']),
+                'knowledgemarks' => trim($_POST['knowledgemarks']),
+                'thinkingmarks' => trim($_POST['thinkingmarks']),
+                'applicationmarks' => trim($_POST['applicationmarks']),
+                'communicationmarks' => trim($_POST['communicationmarks']),
                 'late' => trim($_POST['late']),
-                'marks_err' => ''
+                'marks_err' => '',
+                'knowledgemarks_err' => '',
+                'thinkingmarks_err' => '',
+                'applicationmarks_err' => '',
+                'communicationmarks_err' => ''
             ];
 
             if (empty($data['marks'])) {
                 $data['marks_err'] = "Please enter total marks";
             }
 
-            if (empty($data['marks_err'])) {
+            if (empty($data['knowledgemarks'])) {
+                $data['knowledgemarks_err'] = "Please enter knowledge marks";
+            }
+
+            if (empty($data['thinkingmarks'])) {
+                $data['thinkingmarks_err'] = "Please enter thinking marks";
+            }
+
+            if (empty($data['applicationmarks'])) {
+                $data['applicationmarks_err'] = "Please enter application marks";
+            }
+
+            if (empty($data['communicationmarks'])) {
+                $data['communicationmarks_err'] = "Please enter communication marks";
+            }
+
+            if (empty($data['marks_err']) && empty($data['knowledgemarks_err']) && empty($data['thinkingmarks_err']) && empty($data['applicationmarks_err']) && empty($data['communicationmarks_err'])) {
 
                 //Is there already assignment results?
                 if ($this->assignmentModel->doesAssignmentResultExist($assignmentid, $classid, $studentid)) {
-                    if ($this->assignmentModel->updateAssignmentResultByData($assignmentid, $classid, $studentid, $data['marks'], $data['late'])) {
+                    if ($this->assignmentModel->updateAssignmentResultByData($assignmentid, $classid, $studentid, $data['marks'], $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
                         redirect('classes/student/' . $classid . '/' . $studentid);
                     } else {
                         die('Something went wrong');
                     }
                 } else {
-                    if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, $data['marks'], $data['late'])) {
+                    if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, $data['marks'], $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
                         redirect('classes/student/' . $classid . '/' . $studentid);
                     } else {
                         die('Something went wrong');
@@ -165,8 +235,18 @@ class Classes extends Controller {
                 'studentData' => $studentData,
                 'assignmentData' => $assignmentData,
                 'marks' => '',
+                'marks_err' => '',
+                'knowledgemarks' => '',
+                'thinkingmarks' => '',
+                'applicationmarks' => '',
+                'communicationmarks' => '',
                 'late' => '',
-                'marks_err' => ''
+                'marks_err' => '',
+                'marks_err' => '',
+                'knowledgemarks_err' => '',
+                'thinkingmarks_err' => '',
+                'applicationmarks_err' => '',
+                'communicationmarks_err' => ''
             ];
 
             $this->view('classes/addmark', $data);

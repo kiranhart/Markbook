@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="<?php echo URLROOT . '/css/lux.css'; ?>">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" href="<?php echo URLROOT . '/css/style.css'; ?>">
-  <link rel="shortcut icon" href="<?php echo URLROOT . '/images/favicon.png'; ?>" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap Core css -->
+  <link href="<?php echo URLROOT . '/css/bootstrap.min.css'; ?>" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="<?php echo URLROOT . '/css/mdb.min.css'; ?>" rel="stylesheet">
+  <!-- Custom style sheets -->
+  <link href="<?php echo URLROOT . '/css/style.css'; ?>" rel="stylesheet">
+
+  <link rel="shortcut icon" href="<?php echo URLROOT . '/images/favicon.png'; ?>" type="image/png">  
   <title><?php echo SITENAME; ?></title>
 </head>
 <body>

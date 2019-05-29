@@ -1,7 +1,4 @@
-<?php if (isLoggedIn()) : ?>
-    <div style="background-color:#020f23; color: white; width: 100%; margin: 0; padding: 0;" class="text-center">Markbook development in progress by Kiran Hart</div>
-<?php endif; ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-dark primary-color">
     <div class="container">
         <a href="<?php echo (isLoggedIn()) ? URLROOT . '/users/home' : URLROOT; ?>" class="navbar-brand">
             <img src="<?php echo URLROOT . '/images/favicon.png'; ?>" width="30" height="30" class="d-inline-block align-top">
@@ -13,16 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <?php if (isset($_SESSION['user_id'])) : ?>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="<?php echo URLROOT . '/classes/list'; ?>" class="nav-link">Classes</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="<?php echo URLROOT . '/students/list'; ?>" class="nav-link">Students</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="<?php echo URLROOT . '/assignments/list'; ?>" class="nav-link">Assignments</a>
                     </li>
-                    <li class="nav-item dropdown active">
+                    <li class="nav-item dropdown">
                         <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?php echo $_SESSION['user_data']->prefix . ". " . $_SESSION['user_data']->lastname; ?>
                         </a>
@@ -33,14 +30,14 @@
                         </div>
                     </li>
                 <?php else : ?>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="<?php echo URLROOT . '/pages/about'; ?>" class="nav-link">About</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="<?php echo URLROOT . '/pages/features'; ?>" class="nav-link">Features</a>
                     </li>
-                    <li class="nav-item active">
-                        <a href="<?php echo URLROOT . '/users/login'; ?>" class="nav-link btn btn-success px-3">Login</a>
+                    <li class="nav-item">
+                        <a href="<?php echo URLROOT . '/users/login'; ?>" class="nav-link">Login</a>
                     </li>
                 <?php endif; ?>
             </ul>

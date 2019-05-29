@@ -20,11 +20,47 @@
 						<div class="col">
 							<div class="form-group">
 								<label id="marklabel" for="marks">Marks:</label>
-								<?php 
-									echo '<input id="markslider" type="range" name="marks" class="form-control-range" min="0" max="' . $data['assignmentData']->marks . '" step="0.1" value="0">';
-								?>
+								<select name="marks" class="custom-select" id="marks" value="<?php echo $data['marks']; ?>">
+									<?php for ($i = 0; $i <= $data['assignmentData']->marks; $i++) : ?>
+										<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+									<?php endfor; ?>
+								</select>
 								<span class="invalid-feedback"><?php echo $data['marks_err']; ?></span>
 							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col">
+							<label for="knowledgemarks">Knowledge: <sup>*</sup></label>
+							<select name="knowledgemarks" class="custom-select" id="knowledgemarks" value="<?php echo $data['knowledgemarks']; ?>">
+								<?php for ($i = 0; $i <= $data['assignmentData']->knowledge; $i++) : ?>
+									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
+						<div class="col">
+							<label for="thinkingmarks">Thinking: <sup>*</sup></label>
+							<select name="thinkingmarks" class="custom-select" id="thinkingmarks" value="<?php echo $data['thinkingmarks']; ?>">
+								<?php for ($i = 0; $i <= $data['assignmentData']->thinking; $i++) : ?>
+									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
+						<div class="col">
+							<label for="applicationmarks">Application: <sup>*</sup></label>
+							<select name="applicationmarks" class="custom-select" id="applicationmarks" value="<?php echo $data['applicationmarks']; ?>">
+								<?php for ($i = 0; $i <= $data['assignmentData']->application; $i++) : ?>
+									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+								<?php endfor; ?>
+							</select>
+						</div>
+						<div class="col">
+							<label for="communicationmarks">Communication: <sup>*</sup></label>
+							<select name="communicationmarks" class="custom-select" id="communicationmarks" value="<?php echo $data['communicationmarks']; ?>">
+								<?php for ($i = 0; $i <= $data['assignmentData']->communication; $i++) : ?>
+									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+								<?php endfor; ?>
+							</select>
 						</div>
 					</div>
 					<br>

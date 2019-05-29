@@ -27,9 +27,13 @@
                 <thead class="thead-dark">
                     <tr>
                         <td>Name</td>
-                        <td>Description</td>
+                        <!-- <td>Description</td> -->
                         <td>Marks</td>
                         <td>Weight</td>
+                        <td>Knowledge</td>
+                        <td>Thinking</td>
+                        <td>Application</td>
+                        <td>Communication</td>
                         <td>More</td>
                     </tr>
                 </thead>
@@ -37,9 +41,13 @@
                     <?php foreach ($data['allAssignments'] as $assignment) : ?>
                     <tr>
                         <td><?php echo $assignment->name; ?></td>
-                        <td><?php echo $assignment->description; ?></td>
+                        <!-- <td><?php echo $assignment->description; ?></td> -->
                         <td><?php echo $assignment->marks; ?></td>
                         <td><?php echo $assignment->weight; ?></td>
+                        <td><?php echo $assignment->knowledge; ?></td>
+                        <td><?php echo $assignment->thinking; ?></td>
+                        <td><?php echo $assignment->application; ?></td>
+                        <td><?php echo $assignment->communication; ?></td>
                         <td>
                             <div class="row">
                                 <div class="col">
