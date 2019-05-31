@@ -1,33 +1,36 @@
 <head>
-	<style>
-		body {
-			background-image: url(<?php echo URLROOT . '/public/images/login-bg.jpg';?>);
-			background-position: center center;
-			-webkit-background-size: cover;
-  			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
-		}
-	</style>
+    <style>
+        body {
+            background: linear-gradient(237deg, #041e54, #570558, #580505, #a19a3a);
+            background-size: 800% 800%;
+
+            -webkit-animation: GradAnimationOne 53s ease infinite;
+            -moz-animation: GradAnimationOne 53s ease infinite;
+            animation: GradAnimationOne 53s ease infinite;
+        }
+
+    </style>
 </head>
 
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php if (!isset($_SESSION['user_id'])) : ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card card-body bg-light mt-5">
-                    <h2 class="text-center">Create An Account</h2>
-                    <p class="text-center">Please fill out this form to register for Markbook</p>
+
+<div style="margin-top: 10%;" class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mx-auto">
+            <div style="border: none;" class="card shadow-lg">
+                <div class="card-header text-white aqua-purple-gradient">
+                    <h1 class="text-center">Register</h1>
+                </div>
+                <div class="card-body container">
                     <form action="<?php echo URLROOT . '/users/register'; ?>" method="POST">
-                        
                         <!-- First Name -->
                         <div class="form-row">
                             <div class="col">
                                 <div class="form-group">
                                     <label for="firstname">First Name: <sup>*</sup></label>
-                                    <input type="text" name="firstname" class="form-control <?php echo (!empty($data['firstname_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['firstname']; ?>">
+                                    <input type="text" name="firstname" class="single-line-input form-control <?php echo (!empty($data['firstname_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['firstname']; ?>">
                                     <span class="invalid-feedback"><?php echo $data['firstname_err']; ?></span>
                                 </div>
                             </div>
@@ -35,7 +38,7 @@
                                 <!-- Last Name -->
                                 <div class="form-group">
                                     <label for="lastname">Last Name: <sup>*</sup></label>
-                                    <input type="text" name="lastname" class="form-control <?php echo (!empty($data['lastname_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['lastname']; ?>">
+                                    <input type="text" name="lastname" class="single-line-input form-control <?php echo (!empty($data['lastname_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['lastname']; ?>">
                                     <span class="invalid-feedback"><?php echo $data['lastname_err']; ?></span>
                                 </div>
                             </div>
@@ -46,7 +49,7 @@
                                 <!-- Email -->
                                 <div class="form-group">
                                     <label for="email">Email: <sup>*</sup></label>
-                                    <input type="email" name="email" class="form-control <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>">
+                                    <input type="email" name="email" class="single-line-input form-control <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['email']; ?>">
                                     <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
                                 </div>
                             </div>
@@ -54,7 +57,7 @@
                                 <!-- Birthdate -->
                                 <div class="form-group">
                                     <label for="birthdate">Birthday: <sup>*</sup></label>
-                                    <input type="date" name="birthdate" class="form-control <?php echo (!empty($data['birthdate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['birthdate']; ?>">
+                                    <input type="date" name="birthdate" class="single-line-input form-control <?php echo (!empty($data['birthdate_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['birthdate']; ?>">
                                     <span class="invalid-feedback"><?php echo $data['birthdate_err']; ?></span>
                                 </div>
                             </div>
@@ -65,7 +68,7 @@
                                 <!-- Prefix -->
                                 <div class="form-group">
                                     <label for="prefix">Prefix: <sup>*</sup></label>
-                                    <select name="prefix" id="prefix" class="custom-select" value="<?php echo $data['prefix'] ?>">
+                                    <select name="prefix" id="prefix" class="custom-select single-line-input" value="<?php echo $data['prefix'] ?>">
                                         <option value="Mrs">Mrs</option>
                                         <option value="Ms">Ms</option>
                                         <option value="Mr">Mr</option>
@@ -77,7 +80,7 @@
                                 <!-- Sex -->
                                 <div class="form-group">
                                     <label for="sex">Gender: <sup>*</sup></label>
-                                    <select name="sex" id="sex" class="custom-select" value="<?php echo $data['sex'] ?>">
+                                    <select name="sex" id="sex" class="custom-select single-line-input" value="<?php echo $data['sex'] ?>">
                                         <option value="Female">Female</option>
                                         <option value="Male">Male</option>
                                     </select>
@@ -91,7 +94,7 @@
                                 <!-- Password -->
                                 <div class="form-group">
                                     <label for="password">Password: <sup>*</sup></label>
-                                    <input type="password" name="password" class="form-control <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
+                                    <input type="password" name="password" class="single-line-input form-control <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>">
                                     <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
                                 </div>
                             </div>
@@ -99,7 +102,7 @@
                                 <!-- Password Confirm -->
                                 <div class="form-group">
                                     <label for="confirmpassword">Confirm Password: <sup>*</sup></label>
-                                    <input type="password" name="confirmpassword" class="form-control <?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['confirm_password']; ?>">
+                                    <input type="password" name="confirmpassword" class="single-line-input form-control <?php echo (!empty($data['confirm_password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['confirm_password']; ?>">
                                     <span class="invalid-feedback"><?php echo $data['confirm_password_err']; ?></span>
                                 </div>
                             </div>
@@ -118,6 +121,7 @@
             </div>
         </div>
     </div>
+</div>
 <?php else : ?>
     <?php redirect('users/home'); ?>
 <?php endif; ?>

@@ -1,0 +1,32 @@
+@-webkit-keyframes GradAnimationOne {
+    0%{background-position:0% 38%}
+    50%{background-position:100% 63%}
+    100%{background-position:0% 38%}
+}
+@-moz-keyframes GradAnimationOne {
+    0%{background-position:0% 38%}
+    50%{background-position:100% 63%}
+    100%{background-position:0% 38%}
+}
+@keyframes GradAnimationOne { 
+    0%{background-position:0% 38%}
+    50%{background-position:100% 63%}
+    100%{background-position:0% 38%}
+}
+
+.single-line-input {
+	border:none; 
+	border-bottom: 1px solid black; 
+	border-radius: 0;
+}
+
+.aqua-purple-gradient {
+	background-color: #21D4FD;
+	background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+}
+
+.btn-grad-aqua {
+	background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%)
+}
+
+.btn-grad-aqua:hover { background-position: right center; }

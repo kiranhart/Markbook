@@ -3,17 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <!-- Bootstrap Core css -->
-  <link href="<?php echo URLROOT . '/css/bootstrap.min.css'; ?>" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="<?php echo URLROOT . '/css/mdb.min.css'; ?>" rel="stylesheet">
-  <!-- Custom style sheets -->
-  <link href="<?php echo URLROOT . '/css/style.css'; ?>" rel="stylesheet">
-
+  <link type="text/css" href="<?php echo URLROOT; ?>/css/style.css" rel="stylesheet">
   <link rel="shortcut icon" href="<?php echo URLROOT . '/images/favicon.png'; ?>" type="image/png">  
   <title><?php echo SITENAME; ?></title>
 </head>
