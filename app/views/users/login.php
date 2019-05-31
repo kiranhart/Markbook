@@ -1,25 +1,20 @@
 <head>
     <style>
         body {
-            background: linear-gradient(237deg, #041e54, #570558, #580505, #a19a3a);
-            background-size: 800% 800%;
-
-            -webkit-animation: GradAnimationOne 53s ease infinite;
-            -moz-animation: GradAnimationOne 53s ease infinite;
-            animation: GradAnimationOne 53s ease infinite;
+            background-image: url(<?php echo URLROOT . '/images/pages/bookdesk.jpg'; ?>);
+            background-size: cover;
+            background-position: center center;
         }
-
     </style>
 </head>
-
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php if (!isset($_SESSION['user_id'])) : ?>
-<div style="margin-top: 10%;" class="container-fluid">
+<div style="margin-top: 7%;" class="container-fluid">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mx-auto">
             <div style="border: none;" class="card shadow-lg">
-                <div class="card-header text-white aqua-purple-gradient">
+                <div class="card-header text-white bg-info">
                     <h1 class="text-center">Login</h1>
                 </div>
                 <div class="card-body container">

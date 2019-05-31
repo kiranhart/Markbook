@@ -2,6 +2,7 @@
   class Users extends Controller {
     public function __construct(){
       $this->userModel = $this->model('User');
+      $this->classModel = $this->model('UClass');
     }
 
     public function register(){
@@ -187,7 +188,8 @@
 
     public function home() {
       $data = [
-        'pageName' => 'User Home Page'
+        'pageName' => 'User Home Page',
+        'classCount' => $this->classModel->getClassCount($_SESSION['user_email'])
       ];
 
       $this->view('users/home', $data);

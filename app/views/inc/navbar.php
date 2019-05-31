@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md <?php echo (isLoggedIn()) ? 'bg-dark navbar-dark' : 'bg-transparent navbar-dark white-text'; ?>">
+<nav class="navbar navbar-expand-md <?php echo (isLoggedIn()) ? 'bg-info navbar-dark' : 'bg-info navbar-dark white-text'; ?>">
     <div class="container">
         <a href="<?php echo (isLoggedIn()) ? URLROOT . '/users/home' : URLROOT; ?>" class="navbar-brand">
             <img src="<?php echo URLROOT . '/images/favicon.png'; ?>" width="30" height="30" class="d-inline-block align-top mr-1">
