@@ -9,13 +9,14 @@ class Student {
 	}
 
     //Add Student to database
-    public function addStudent($teacherid, $firstname, $lastname, $birthdate, $email) {
-        $this->db->query('INSERT INTO student (teacherid, firstname, lastname, birthdate, email) VALUES (:teacherid, :firstname, :lastname, :birthdate, :email)');
+    public function addStudent($teacherid, $firstname, $lastname, $birthdate, $email, $number) {
+        $this->db->query('INSERT INTO student (teacherid, firstname, lastname, birthdate, email, studentnumber) VALUES (:teacherid, :firstname, :lastname, :birthdate, :email, :studentnumber)');
         $this->db->bind(':teacherid', $teacherid);
         $this->db->bind(':firstname', $firstname);
         $this->db->bind(':lastname', $lastname);
         $this->db->bind(':birthdate', $birthdate);
         $this->db->bind(':email', $email);
+        $this->db->bind(':studentnumber', $number);
 
         if ($this->db->execute()){
             return true;

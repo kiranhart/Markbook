@@ -22,10 +22,12 @@ class Students extends Controller {
 				'lastname' => trim($_POST['lastname']),
 				'birthdate' => trim($_POST['birthdate']),
 				'email' => trim($_POST['email']),
+				'studentnumber' => trim($_POST['studentnumber']),
 				'firstname_err' => '',
 				'lastname_err' => '',
 				'birthdate_err' => '',
-				'email_err' => ''
+				'email_err' => '',
+				'studentnumber_err' => ''
 			];
 
 			if (empty($data['firstname'])) {
@@ -44,9 +46,13 @@ class Students extends Controller {
 				$data['email_err'] = 'Please enter student\'s email';
 			}
 
-			if (empty($data['firstname_err']) && empty($data['lastname_err']) && empty($data['birthdate_err']) && empty($data['email_err'])) {
+			if (empty($data['studentnumber'])) {
+				$data['studentnumber_err'] = "Please enter student number";
+			}
+
+			if (empty($data['studentnumber_err']) && empty($data['firstname_err']) && empty($data['lastname_err']) && empty($data['birthdate_err']) && empty($data['email_err'])) {
 				//Add the student to user account
-				if ($this->studentModel->addStudent($_SESSION['user_id'], $data['firstname'], $data['lastname'], $data['birthdate'], $data['email'])) {
+				if ($this->studentModel->addStudent($_SESSION['user_id'], $data['firstname'], $data['lastname'], $data['birthdate'], $data['email'], $data['studentnumber'])) {
 					redirect('students/list');
 				} else {
 					die('Something went wrong');
@@ -62,10 +68,12 @@ class Students extends Controller {
 				'lastname' => '',
 				'birthdate' => '',
 				'email' => '',
+				'studentnumber' => '',
 				'firstname_err' => '',
 				'lastname_err' => '',
 				'birthdate_err' => '',
-				'email_err' => ''
+				'email_err' => '',
+				'studentnumber_err' => ''
 			];
 
 			$this->view('students/add', $data);

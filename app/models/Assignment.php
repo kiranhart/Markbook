@@ -9,8 +9,8 @@ class Assignment {
     }
     
     //Add assignment to class
-    public function addAssignment($teacherid, $classid, $name, $desc, $marks, $weight, $knowledge, $thinking, $application, $communication, $assignedDate, $due) {
-        $this->db->query('INSERT INTO assignment (teacherid, classid, name, description, marks, weight, knowledge, thinking, application, communication, assigneddate, duedate) VALUES (:teacherid, :classid, :name, :description, :marks, :weight, :knowledge, :thinking, :application, :communication, :assigneddate, :duedate)');
+    public function addAssignment($teacherid, $classid, $name, $desc, $marks, $weight, $knowledge, $thinking, $application, $communication, $isfinal, $assignedDate, $due) {
+        $this->db->query('INSERT INTO assignment (teacherid, classid, name, description, marks, weight, knowledge, thinking, application, communication, isfinal, assigneddate, duedate) VALUES (:teacherid, :classid, :name, :description, :marks, :weight, :knowledge, :thinking, :application, :communication, :isfinal, :assigneddate, :duedate)');
         $this->db->bind(':teacherid', $teacherid);
         $this->db->bind(':classid', $classid);
         $this->db->bind(':name', $name);
@@ -21,6 +21,7 @@ class Assignment {
         $this->db->bind(':thinking', $thinking);
         $this->db->bind(':application', $application);
         $this->db->bind(':communication', $communication);
+        $this->db->bind(':isfinal', $isfinal);
         $this->db->bind(':assigneddate', $assignedDate);
         $this->db->bind(':duedate', $due);
 

@@ -25,13 +25,17 @@ class Classes extends Controller {
                 'classthinking' => trim($_POST['classthinking']),
                 'classapplication' => trim($_POST['classapplication']),
                 'classcommunication' => trim($_POST['classcommunication']),
+                'classterm' => trim($_POST['classterm']),
+                'classfinal' => trim($_POST['classfinal']),
                 'classknowledge_err' => '',
                 'classthinking_err' => '',
                 'classapplication_err' => '',
                 'classcommunication_err' => '',
                 'classname_err' => '',
                 'classcode_err' => '',
-                'classdescription_err' => ''
+                'classdescription_err' => '',
+                'classterm_err' => '',
+                'classfinal_err' => ''
             ];   
             
             if (empty($data['classname'])) {
@@ -62,23 +66,37 @@ class Classes extends Controller {
                 $data['classcommunication_err'] = "Please enter communication %";
             }
 
+            if (empty($data['classterm'])) {
+                $data['classterm_err'] = "Please fill out class term %";
+            }
+
+            if (empty($data['classfinal'])) {
+                $data['classfinal_err'] = "Please fill out class final %";
+            }
+
             $kr = (empty($data['classknowledge'])) ? 0 : $data['classknowledge'];
             $tr = (empty($data['classthinking'])) ? 0 : $data['classthinking'];
             $ar = (empty($data['classapplication'])) ? 0 : $data['classapplication'];
             $cr = (empty($data['classcommunication'])) ? 0 : $data['classcommunication'];
 
-            if (($kr + $tr + $ar + $cr) != 70) {
-                $data['classknowledge_err'] = "K.T.A.C Must total to 70%";
-                $data['classthinking_err'] = "K.T.A.C Must total to 70%";
-                $data['classapplication_err'] = "K.T.A.C Must total to 70%";
-                $data['classcommunication_err'] = "K.T.A.C Must total to 70%";
-            } else {
-                $data['classknowledge'] = "ddd";
+            $ct = (empty($data['classterm'])) ? 0 : $data['classterm'];
+            $cf = (empty($data['classfinal'])) ? 0 : $data['classfinal'];
+
+            if (($kr + $tr + $ar + $cr) != 100) {
+                $data['classknowledge_err'] = "K.T.A.C Must total to 100%";
+                $data['classthinking_err'] = "K.T.A.C Must total to 100%";
+                $data['classapplication_err'] = "K.T.A.C Must total to 100%";
+                $data['classcommunication_err'] = "K.T.A.C Must total to 100%";
+            } 
+
+            if (($ct + $cf) != 100) {
+                $data['classterm_err'] = "Term + Final Must Total 100%";
+                $data['classfinal_err'] = "Term + Final Must Total 100%";
             }
 
-            if (empty($data['classname_err']) && empty($data['classcode_err']) && empty($data['classdescription_err']) && empty($data['classknowledge_err']) && empty($data['classthinking_err']) && empty($data['classapplication_err']) && empty($data['classcommunication_err'])) {
+            if (empty($data['classterm_err']) && empty($data['classfinal_err']) && empty($data['classname_err']) && empty($data['classcode_err']) && empty($data['classdescription_err']) && empty($data['classknowledge_err']) && empty($data['classthinking_err']) && empty($data['classapplication_err']) && empty($data['classcommunication_err'])) {
                 //Add the class
-                if ($this->classModel->createClass($_SESSION['user_id'], $_SESSION['user_email'], $data['classname'], $data['classcode'], $data['classdescription'], $kr, $tr, $ar, $cr, 30)) {
+                if ($this->classModel->createClass($_SESSION['user_id'], $_SESSION['user_email'], $data['classname'], $data['classcode'], $data['classdescription'], $kr, $tr, $ar, $cr, $data['classterm'], $data['classfinal'])) {
                     redirect('classes/list');
                 } else {
                     die("Something went wrong");
@@ -97,13 +115,17 @@ class Classes extends Controller {
                 'classthinking' => '',
                 'classapplication' => '',
                 'classcommunication' => '',
+                'classterm' => '',
+                'classfinal' => '',
                 'classknowledge_err' => '',
                 'classthinking_err' => '',
                 'classapplication_err' => '',
                 'classcommunication_err' => '',
                 'classname_err' => '',
                 'classcode_err' => '',
-                'classdescription_err' => ''
+                'classdescription_err' => '',
+                'classterm_err' => '',
+                'classfinal_err' => ''
             ];
 
             //Load View
@@ -205,6 +227,12 @@ class Classes extends Controller {
 
             if (empty($data['communicationmarks'])) {
                 $data['communicationmarks_err'] = "Please enter communication marks";
+            }
+
+            if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, $data['marks'], $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
+                redirect('classes/student/' . $classid . '/' . $studentid);
+            } else {
+                die('Something went wrong');
             }
 
             if (empty($data['marks_err']) && empty($data['knowledgemarks_err']) && empty($data['thinkingmarks_err']) && empty($data['applicationmarks_err']) && empty($data['communicationmarks_err'])) {

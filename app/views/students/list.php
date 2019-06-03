@@ -59,7 +59,8 @@
                                     <td>Last Name</td>
                                     <td>Birthday</td>
                                     <td>Email</td>
-                                    <td>View</td>
+                                    <td>Student #</td>
+                                    <td>Edit</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,6 +70,7 @@
                                     <td><?php echo $student->lastname; ?></td>
                                     <td><?php echo $student->birthdate; ?></td>
                                     <td><?php echo $student->email; ?></td>
+                                    <td><?php echo $student->studentnumber; ?></td>
                                     <td>
                                         <div class="row">
                                             <!-- <div class="col">

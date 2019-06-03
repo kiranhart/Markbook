@@ -17,8 +17,8 @@ class UClass {
     }
 
     //Create Class
-    public function createClass($userid, $useremail, $classname, $classcode, $classdesc, $knowledge, $thinking, $application, $communication, $final) {
-        $this->db->query('INSERT INTO class (ownerid, useremail, classname, classcode, classdescription, knowledge, thinking, application, communication, final) VALUES (:ownerid, :useremail, :classname, :classcode, :classdescription, :knowledge, :thinking, :application, :communication, :final)');
+    public function createClass($userid, $useremail, $classname, $classcode, $classdesc, $knowledge, $thinking, $application, $communication, $term, $final) {
+        $this->db->query('INSERT INTO class (ownerid, useremail, classname, classcode, classdescription, knowledge, thinking, application, communication, termmark, finalmark) VALUES (:ownerid, :useremail, :classname, :classcode, :classdescription, :knowledge, :thinking, :application, :communication, :termmark, :finalmark)');
         $this->db->bind(':ownerid', $userid);
         $this->db->bind(':useremail', $useremail);
         $this->db->bind(':classname', $classname);
@@ -28,7 +28,8 @@ class UClass {
         $this->db->bind(':thinking', $thinking);
         $this->db->bind(':application', $application);
         $this->db->bind(':communication', $communication);
-        $this->db->bind(':final', $final);
+        $this->db->bind(':termmark', $term);
+        $this->db->bind(':finalmark', $final);
 
         if ($this->db->execute()){
             return true;
