@@ -209,30 +209,24 @@ class Classes extends Controller {
                 'communicationmarks_err' => ''
             ];
 
-            if (empty($data['marks'])) {
+            if (!isset($data['marks'])) {
                 $data['marks_err'] = "Please enter total marks";
             }
 
-            if (empty($data['knowledgemarks'])) {
+            if (!isset($data['knowledgemarks'])) {
                 $data['knowledgemarks_err'] = "Please enter knowledge marks";
             }
 
-            if (empty($data['thinkingmarks'])) {
+            if (!isset($data['thinkingmarks'])) {
                 $data['thinkingmarks_err'] = "Please enter thinking marks";
             }
 
-            if (empty($data['applicationmarks'])) {
+            if (!isset($data['applicationmarks'])) {
                 $data['applicationmarks_err'] = "Please enter application marks";
             }
 
-            if (empty($data['communicationmarks'])) {
+            if (!isset($data['communicationmarks'])) {
                 $data['communicationmarks_err'] = "Please enter communication marks";
-            }
-
-            if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, $data['marks'], $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
-                redirect('classes/student/' . $classid . '/' . $studentid);
-            } else {
-                die('Something went wrong');
             }
 
             if (empty($data['marks_err']) && empty($data['knowledgemarks_err']) && empty($data['thinkingmarks_err']) && empty($data['applicationmarks_err']) && empty($data['communicationmarks_err'])) {

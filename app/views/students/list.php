@@ -1,7 +1,6 @@
 <head>
     <style>
         html, body {
-            overflow-y: hidden;
         }
     </style>
 </head>

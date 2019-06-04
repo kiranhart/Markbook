@@ -1,7 +1,6 @@
 <head>
     <style>
         html, body {
-            overflow-y: hidden;
         }
     </style>
 </head>
@@ -11,7 +10,7 @@
 <div style="width: 100%; height: 100vh;" class="container-fluid">
 
     <div class="row">
-        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: 100vh; background-color: #272e38;">
+        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: auto; background-color: #272e38;">
             <h4 class="text-center text-white mt-5"><?php echo $_SESSION['user_data']->prefix . '. ' . $_SESSION['user_data']->lastname; ?></h4>
             <hr style="color: white; background-color: white;">
             <br>
@@ -47,12 +46,8 @@
 								<div class="form-row">
 									<div class="col">
 										<div class="form-group">
-											<label id="marklabel" for="marks">Marks:</label>
-											<select name="marks" class="custom-select" id="marks" value="<?php echo $data['marks']; ?>">
-												<?php for ($i = 0; $i <= $data['assignmentData']->marks; $i++) : ?>
-													<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-												<?php endfor; ?>
-											</select>
+											<label for="marks">Marks:</label>
+											<input type="number" min="0" max="<?php echo $data['assignmentData']->marks; ?>" step="0.01" name="marklabel" id="marklabel" class="form-control" value="<?php echo $data['marks']; ?>">
 											<span class="invalid-feedback"><?php echo $data['marks_err']; ?></span>
 										</div>
 									</div>
@@ -60,35 +55,19 @@
 								<div class="form-row">
 									<div class="col">
 										<label for="knowledgemarks">Knowledge: <sup>*</sup></label>
-										<select name="knowledgemarks" class="custom-select" id="knowledgemarks" value="<?php echo $data['knowledgemarks']; ?>">
-											<?php for ($i = 0; $i <= $data['assignmentData']->knowledge; $i++) : ?>
-												<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-											<?php endfor; ?>
-										</select>
+										<input type="number" min="0" max="<?php echo $data['assignmentData']->knowledge; ?>" step="0.01" name="knowledgemarks" id="knowledgemarks" class="form-control" value="<?php echo $data['knowledgemarks']; ?>">
 									</div>
 									<div class="col">
 										<label for="thinkingmarks">Thinking: <sup>*</sup></label>
-										<select name="thinkingmarks" class="custom-select" id="thinkingmarks" value="<?php echo $data['thinkingmarks']; ?>">
-											<?php for ($i = 0; $i <= $data['assignmentData']->thinking; $i++) : ?>
-												<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-											<?php endfor; ?>
-										</select>
+										<input type="number" min="0" max="<?php echo $data['assignmentData']->thinking; ?>" step="0.01" name="thinkingmarks" id="thinkingmarks" class="form-control" value="<?php echo $data['thinkingmarks']; ?>">
 									</div>
 									<div class="col">
 										<label for="applicationmarks">Application: <sup>*</sup></label>
-										<select name="applicationmarks" class="custom-select" id="applicationmarks" value="<?php echo $data['applicationmarks']; ?>">
-											<?php for ($i = 0; $i <= $data['assignmentData']->application; $i++) : ?>
-												<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-											<?php endfor; ?>
-										</select>
+										<input type="number" min="0" max="<?php echo $data['assignmentData']->application; ?>" step="0.01" name="applicationmarks" id="applicationmarks" class="form-control" value="<?php echo $data['applicationmarks']; ?>">
 									</div>
 									<div class="col">
 										<label for="communicationmarks">Communication: <sup>*</sup></label>
-										<select name="communicationmarks" class="custom-select" id="communicationmarks" value="<?php echo $data['communicationmarks']; ?>">
-											<?php for ($i = 0; $i <= $data['assignmentData']->communication; $i++) : ?>
-												<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-											<?php endfor; ?>
-										</select>
+										<input type="number" min="0" max="<?php echo $data['assignmentData']->communication; ?>" step="0.01" name="communicationmarks" id="communicationmarks" class="form-control" value="<?php echo $data['communicationmarks']; ?>">
 									</div>
 								</div>
 								<br>
@@ -128,13 +107,6 @@
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
-	var slider = document.getElementById("markslider");
-	var output = document.getElementById("marklabel");
 
-	output.innerHTML = slider.value;
-
-	slider.oninput = function() {
-		output.innerHTML = "Marks: " + this.value;
-	}
 
 </script>

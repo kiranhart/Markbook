@@ -10,7 +10,7 @@
 <div style="width: 100%; height: 100vh;" class="container-fluid">
 
     <div class="row">
-        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: 100vh; background-color: #272e38;">
+        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: auto; background-color: #272e38;">
             <h4 class="text-center text-white mt-5"><?php echo $_SESSION['user_data']->prefix . '. ' . $_SESSION['user_data']->lastname; ?></h4>
             <hr style="color: white; background-color: white;">
             <br>
@@ -38,86 +38,162 @@
                 <?php  
                     if ($data['assignmentResultCount'] > 0) {
                         
-                        // Variables for default weighing system
-                        $divdedByAmount = 0;
+                        //Default Weighting system
                         $sumOfMarks = 0;
-                        
-                        //Variables for K T A C 
-                        $kr_sum = 0;
-                        $tr_sum = 0;
-                        $ar_sum = 0;
-                        $cr_sum = 0;
+                        $divdedSum = 0;
+
+                        // Variables for mark calculation system
+                        $knowledgeWorth = $data['classData']->knowledge;
+                        $thinkingWorth = $data['classData']->thinking;
+                        $applicationWorth = $data['classData']->application;
+                        $communicationWorth = $data['classData']->communication;
             
-                        //Variables for K T A C  div amount
-                        $kr_div = 0;
-                        $tr_div = 0;
-                        $ar_div = 0;
-                        $cr_div = 0;
-            
-            
+                        $knowledgeTotalMarks = 0;
+                        $knowledgeGainMarks = 0;
+
+                        $thinkingTotalMarks = 0;
+                        $thinkingGainMarks = 0;
+
+                        $applicationTotalMarks = 0;
+                        $applicationGainMarks = 0;
+
+                        $communicationTotalMarks = 0;
+                        $communicationGainMarks = 0;
+
+                        //EXAM CALCULATIONS
+
+                        $knowledgeTotalMarksExam = 0;
+                        $knowledgeGainMarksExam = 0;
+
+                        $thinkingTotalMarksExam = 0;
+                        $thinkingGainMarksExam = 0;
+
+                        $applicationTotalMarksExam = 0;
+                        $applicationGainMarksExam = 0;
+
+                        $communicationTotalMarksExam = 0;
+                        $communicationGainMarksExam = 0;
+
+                        //EXAM AVERAGE
+
+                        $knowledgeAverage = 0;
+                        $thinkingAverage = 0;
+                        $applicationAverage = 0;
+                        $communicationAverage = 0;
+
+                        $knowledgeAverageExam = 0;
+                        $thinkingAverageExam = 0;
+                        $applicationAverageExam = 0;
+                        $communicationAverageExam = 0;
+
                         foreach ($data['allAssignments'] as $assignment) {
                             foreach ($data['assignmentResults'] as $result) {
                                 if ($assignment->id == $result->assignmentid) {
+                                    //Calculation for single mark & weight (NOT KTAC)
+                                    $sumOfMarks += ($result->totalmarks / $assignment->marks) * 100;
+                                    $divdedSum += $assignment->weight;
+
+                                    //Calculation for KTAC
                                     
-                                    //Weighing
-                                    $divdedByAmount += $assignment->weight;
-                                    $sumOfMarks += (($result->totalmarks / $assignment->marks) * 100) * $assignment->weight;
-                                    
-                                    // K T A C
-                                    $kr_sum += $result->knowledge;
-                                    $tr_sum += $result->thinking;
-                                    $ar_sum += $result->application;
-                                    $cr_sum += $result->communication;
-            
-                                    $kr_div += $assignment->knowledge;
-                                    $tr_div += $assignment->thinking;
-                                    $ar_div += $assignment->application;
-                                    $cr_div += $assignment->communication;
+                                    //Add KTAC total marks
+                                    for ($i = 0; $i < $assignment->weight; $i++) {
+                                        if ($assignment->isfinal == 0) {
+                                            $knowledgeTotalMarks += $assignment->knowledge;
+                                            $thinkingTotalMarks += $assignment->thinking;
+                                            $applicationTotalMarks += $assignment->application;
+                                            $communicationTotalMarks += $assignment->communication;
+
+                                            //Add KTAC gained marks
+                                            $knowledgeGainMarks += $result->knowledge;
+                                            $thinkingGainMarks += $result->thinking;
+                                            $applicationGainMarks += $result->application;
+                                            $communicationGainMarks += $result->communication;
+                                        } else {
+                                            $knowledgeTotalMarksExam += $assignment->knowledge;
+                                            $thinkingTotalMarksExam += $assignment->thinking;
+                                            $applicationTotalMarksExam += $assignment->application;
+                                            $communicationTotalMarksExam += $assignment->communication;
+
+                                            //Add KTAC gained marks
+                                            $knowledgeGainMarksExam += $result->knowledge;
+                                            $thinkingGainMarksExam += $result->thinking;
+                                            $applicationGainMarksExam += $result->application;
+                                            $communicationGainMarksExam += $result->communication;
+                                        }
+                                    }
                                 }
                             }
                         }
-            
-            
+
+                        //Term / Exam / Final Marks
+                        $termMark = 0;
+                        $examMark = 0;
+                        $finalMark = 0;
+
+                        //Calculate the term marks
+                        $knowledgeAverage = number_format($knowledgeGainMarks / $knowledgeTotalMarks, 2, '.', '') * $knowledgeWorth;
+                        $thinkingAverage = number_format($thinkingGainMarks / $thinkingTotalMarks, 2, '.', '') * $thinkingWorth;
+                        $applicationAverage = number_format($applicationGainMarks / $applicationTotalMarks, 2, '.', '') * $applicationWorth;
+                        $communicationAverage = number_format($communicationGainMarks / $communicationTotalMarks, 2, '.', '') * $communicationWorth;
+                        
+                        if ($knowledgeTotalMarksExam != 0) {
+                            $knowledgeAverageExam = number_format($knowledgeGainMarksExam / $knowledgeTotalMarksExam, 2, '.', '') * $knowledgeWorth;
+                        }
+
+                        if ($thinkingTotalMarksExam != 0) {
+                            $thinkingAverageExam = number_format($thinkingGainMarksExam / $thinkingTotalMarksExam, 2, '.', '') * $thinkingWorth;
+                        }
+
+                        if ($applicationTotalMarksExam != 0) {
+                            $applicationAverageExam = number_format($applicationGainMarksExam / $applicationTotalMarksExam, 2, '.', '') * $applicationWorth;
+                        }
+
+                        if ($communicationTotalMarksExam != 0) {
+                            $communicationAverageExam = number_format($communicationGainMarksExam / $communicationTotalMarksExam, 2, '.', '') * $communicationWorth;
+                        }
+
+
+                        $termMark = $knowledgeAverage + $thinkingAverage + $applicationAverage + $communicationAverage;
+                        $examMark = $knowledgeAverageExam + $thinkingAverageExam + $applicationAverageExam + $communicationAverageExam;
+                        $finalMark = ($examMark == 0) ? $termMark : number_format(($termMark * $data['classData']->termmark / 100) + ($examMark * $data['classData']->finalmark / 100), 2, '.', '');
                     }
                 ?>
             
                 <?php if ($data['assignmentResultCount'] > 0) : ?>
                     <div class="row">
                         <div class="col">
-                            <h4 class="text-center">Average: <?php echo number_format($sumOfMarks / $divdedByAmount, 2, '.', '') . '%';?></h4>
+                            <!-- Average -->
+                            <h4 class="text-center">Term Mark:</h4>
+                            <p class="lead text-center"><?php echo $termMark;?>%</p>
                         </div>
                         <div class="col">
-                            <h4 class="text-center">K/T/A/C Average: 
-                            <?php 
-            
-                            $ktacres = $kr_sum + $tr_sum + $ar_sum + $cr_sum;
-                            $ktacdivs = $kr_div + $tr_div + $ar_div + $cr_div;
-                            
-                            echo number_format(($ktacres / $ktacdivs) * 100, 2, '.', '') . '%';
-            
-                            ?>
-                            </h4>
+                            <h4 class="text-center">Exam Mark:</h4>
+                            <p class="lead text-center"><?php echo $examMark;?>%</p>
+                        </div>
+                        <div class="col">
+                            <h4 class="text-center">Final Mark:</h4>
+                            <p class="lead text-center"><?php echo $finalMark;?>%</p>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col">
-                            <h5 class="text-center">Knowledge Avg: <br><br><?php echo number_format(($kr_sum / $kr_div) * 100, 2, '.', '') . '%'; ?></h5>
+                            <h4 class="text-center">Knowledge Average:</h4>
+                            <p class="lead text-center"><?php echo ($knowledgeAverage / $knowledgeWorth) * 100; ?>%</p>
                         </div>
                         <div class="col">
-                            <h5 class="text-center">Thinking Avg: <br><br><?php echo number_format(($tr_sum / $tr_div) * 100, 2, '.', '') . '%'; ?></h5>
+                            <h4 class="text-center">Thinking Average:</h4>
+                            <p class="lead text-center"><?php echo ($thinkingAverage / $thinkingWorth) * 100; ?>%</p>
                         </div>
                         <div class="col">
-                            <h5 class="text-center">Application Avg: <br><br><?php echo number_format(($ar_sum / $ar_div) * 100, 2, '.', '') . '%'; ?></h5>
+                            <h4 class="text-center">Application Average:</h4>
+                            <p class="lead text-center"><?php echo ($applicationAverage / $applicationWorth) * 100; ?>%</p>
                         </div>
                         <div class="col">
-                            <h5 class="text-center">Communication Avg: <br><br><?php echo number_format(($cr_sum / $cr_div) * 100, 2, '.', '') . '%'; ?></h5>
+                            <h4 class="text-center">Comm Average:</h4>
+                            <p class="lead text-center"><?php echo ($communicationAverage / $communicationWorth) * 100; ?>%</p>
                         </div>
-                    </div>
-                    <div class="row">
-                    
-                    </div>
-                    
+                    </div>                    
                     <hr>
                 <?php endif; ?>
                 <br>
@@ -166,8 +242,10 @@
                                             <td>Name</td>
                                             <td>Description</td>
                                             <td>Marks</td>
-                                            <td>Weight</td>
-                                            <td>Late</td>
+                                            <td>K</td>
+                                            <td>T</td>
+                                            <td>A</td>
+                                            <td>C</td>
                                             <td>More</td>
                                         </tr>
                                     </thead>
@@ -179,8 +257,10 @@
                                                         <td><?php echo $assignment->name; ?></td>
                                                         <td><?php echo $assignment->description; ?></td>
                                                         <td><?php echo $result->totalmarks . '/' . $assignment->marks; ?></td>
-                                                        <td><?php echo $assignment->weight; ?></td>
-                                                        <td><?php echo ($result->late == 0) ? 'Not Late' : 'Late'; ?></td>
+                                                        <td><?php echo $result->knowledge . '/' . $assignment->knowledge; ?></td>
+                                                        <td><?php echo $result->thinking . '/' . $assignment->thinking; ?></td>
+                                                        <td><?php echo $result->application . '/' . $assignment->application; ?></td>
+                                                        <td><?php echo $result->communication . '/' . $assignment->communication; ?></td>
                                                         <td><a href="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id . '/' . $data['studentData']->id . '/' . $assignment->id; ?>" class="btn btn-info">Edit</a></td>
                                                     </tr>
                                                 <?php endif; ?>

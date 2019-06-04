@@ -1,8 +1,11 @@
 <?php
   class Users extends Controller {
     public function __construct(){
+
       $this->userModel = $this->model('User');
       $this->classModel = $this->model('UClass');
+      $this->studentModel = $this->model('Student');
+      $this->assignmentModel = $this->model('Assignment');
     }
 
     public function register(){
@@ -187,9 +190,21 @@
     }
 
     public function home() {
+      
+      $classCount = $this->classModel->getClassCount($_SESSION['user_email']);
+      $allClasses = $this->classModel->getAllClasses($_SESSION['user_email']);
+      $studentCount = $this->studentModel->getStudentCountByTeacher($_SESSION['user_id']);
+      $allStudents = $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id']);
+      $assignmentCount = $this->assignmentModel->getAssignmentCountByTeacher($_SESSION['user_id']);
+			$allAssignments = $this->assignmentModel->getAllAssignmentsByTeacher($_SESSION['user_id']);
+
       $data = [
-        'pageName' => 'User Home Page',
-        'classCount' => $this->classModel->getClassCount($_SESSION['user_email'])
+        'classCount' => $classCount,
+        'studentCount' => $studentCount, 
+        'assignmentCount' => $assignmentCount,
+        'allClasses' => $allClasses,
+        'allStudents' => $allStudents,
+        'allAssignments' => $allAssignments
       ];
 
       $this->view('users/home', $data);
