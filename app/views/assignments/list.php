@@ -46,7 +46,12 @@
                 <div class="container text-center">
                     <br><br>
                     <h2 class="align-middle">Listing Assignments</h2>
-            
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <a href="<?php echo URLROOT . '/assignments/add'; ?>" class="btn btn-info">Create Assignment</a>
+                        </div>
+                    </div>
                     <hr>
                     <br>
                     <div class="row">
@@ -89,15 +94,7 @@
                     </div>
             
                     <hr>
-                    <br>
-            
-                    <div class="row">
-                        <div class="col">
-                            <a href="<?php echo URLROOT . '/assignments/add'; ?>" class="btn btn-info">Create Assignment</a>
-                        </div>
-                    </div>
-            
-                    <br>
+                    <br>            
                 </div>
             <?php endif; ?>
 

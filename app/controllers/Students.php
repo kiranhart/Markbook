@@ -104,4 +104,9 @@ class Students extends Controller {
 		];
 		$this->view('students/list', $data);
 	}
+
+	public function show($id) {
+		$data = [];
+		$this->view('students/show', $data);
+	}
 }

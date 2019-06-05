@@ -50,7 +50,7 @@
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
                         <div class="list-group">
                             <?php foreach ($data['allStudents'] as $students): ?>
-                                <a href="<?php echo URLROOT . '/students/show/' . $students->id ;?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1"><?php echo $students->firstname . ', ' . $students->lastname; ?></h5>
                                     </div>

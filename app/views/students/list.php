@@ -47,7 +47,12 @@
                     <br><br>
                     <h2 class="align-middle">Listing Students</h2>
                     <p class="lead">Click on a student row to edit.</p>
-
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <a href="<?php echo URLROOT . '/students/add'; ?>" class="btn btn-info">Create Student</a>
+                        </div>
+                    </div>
                     <hr>
                     <br>
                     <div class="row">
@@ -85,16 +90,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <hr>
-                    <br>
-
-                    <div class="row">
-                        <div class="col">
-                            <a href="<?php echo URLROOT . '/students/add'; ?>" class="btn btn-info">Create Student</a>
-                        </div>
-                    </div>
-
                     <br>
                 </div>
             <?php endif; ?>

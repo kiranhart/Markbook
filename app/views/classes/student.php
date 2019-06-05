@@ -282,50 +282,60 @@
                             </div>
                             <hr>
                             <br>
-                            <h4>Unmarked Assignments</h4>
-                            <p class="lead">Listing assignments that are missing marks.</p>
+                            <?php 
+                                $assignments = array();
+                                $results = array();
+
+                                foreach ($data['allAssignments'] as $aa) {
+                                    array_push($assignments, $aa->id);
+                                }
+
+                                foreach ($data['assignmentResults'] as $rr) {
+                                    array_push($results, $rr->id);
+                                }
+
+                                $filter = array_diff($assignments, $results);
+                            ?> 
+                            <?php if (!empty($filter)) : ?>
+                                <h4>Unmarked Assignments</h4>
+                                <p class="lead">Listing assignments that are missing marks.</p>
+                            <?php else : ?>
+                                <h4>No Unmarked Assignments</h4>
+                                <p class="lead">All assignments for this student have marks.</p>
+                            <?php endif; ?>
                             <br>
                             <div class="row">
                                 <div class="col">
-                                    <table class="table table-bordered table-striped table-responsive">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <td>Name</td>
-                                                <td>Description</td>
-                                                <td>Score</td>
-                                                <td>Total Marks</td>
-                                                <td>Weight</td>
-                                                <td>More</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
-                                            $assignments = array();
-                                            $results = array();
-            
-                                            foreach ($data['allAssignments'] as $aa) {
-                                                array_push($assignments, $aa->id);
-                                            }
-            
-                                            foreach ($data['assignmentResults'] as $rr) {
-                                                array_push($results, $rr->id);
-                                            }
-                                            ?>
-            
-                                            <?php foreach($data['allAssignments'] as $aa) : ?>
-                                                <?php if (in_array($aa->id, array_diff($assignments, $results))) : ?>
-                                                    <tr>
-                                                        <td><?php echo $aa->name; ?></td>
-                                                        <td><?php echo $aa->description; ?></td>
-                                                        <td>0</td>
-                                                        <td><?php echo $assignment->marks; ?></td>
-                                                        <td><?php echo $assignment->weight; ?></td>
-                                                        <td><a href="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id . '/' . $data['studentData']->id . '/' . $aa->id; ?>" class="btn btn-info">Add Marks</a></td>
-                                                    </tr>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                                    <?php if (!empty($filter)) : ?>
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Description</td>
+                                                    <td>K</td>
+                                                    <td>T</td>
+                                                    <td>A</td>
+                                                    <td>C</td>
+                                                    <td>More</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>    
+                                                <?php foreach($data['allAssignments'] as $aa) :?>
+                                                    <?php if(in_array($aa->id, $filter)) : ?>
+                                                        <tr>
+                                                            <td><?php '0 / '. $aa->name; ?></td>
+                                                            <td><?php '0 / '. $aa->description; ?></td>
+                                                            <td><?php '0 / '. $aa->knowledge; ?></td>
+                                                            <td><?php '0 / '. $aa->thinking; ?></td>
+                                                            <td><?php '0 / '. $aa->application; ?></td>
+                                                            <td><?php '0 / '. $aa->communication; ?></td>
+                                                            <td><a href="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id . '/' . $data['studentData']->id . '/' . $aa->id; ?>" class="btn btn-info">Add Mark</a></td>
+                                                        </tr> 
+                                                    <?php endif; ?>   
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>                                        
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endif; ?>

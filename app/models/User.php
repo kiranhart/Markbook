@@ -44,7 +44,7 @@
     }
 
     public function getAllLoginDates($id) {
-      $this->db->query('SELECT * FROM login_data WHERE userid = :id');
+      $this->db->query('SELECT * FROM login_data WHERE userid = :id ORDER BY id DESC');
       $this->db->bind(':id', $id);
       return $this->db->resultSet();
     }

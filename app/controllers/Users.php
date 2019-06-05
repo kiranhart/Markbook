@@ -215,7 +215,6 @@
 
     public function account() {
         $data = [
-          'log' => $this->userModel->recordLoginData()
         ];
         $this->view('users/account', $data);
     }
