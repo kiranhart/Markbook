@@ -10,7 +10,7 @@
 <div style="width: 100%; height: 100vh;" class="container-fluid">
 
     <div class="row">
-        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: auto; background-color: #272e38;">
+        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: 100vh; background-color: #272e38;">
             <h4 class="text-center text-white mt-5"><?php echo $_SESSION['user_data']->prefix . '. ' . $_SESSION['user_data']->lastname; ?></h4>
             <hr style="color: white; background-color: white;">
             <br>

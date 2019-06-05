@@ -48,13 +48,6 @@
 								<div class="form-row">
 									<div class="col">
 										<div class="form-group">
-											<label for="assignmentmarks">Marks: <sup>*</sup></label>
-											<input type="number" name="assignmentmarks" id="assignmentmarks" class="form-control <?php echo (!empty($data['assignmentmarks_err'])) ? 'is-invalid' : ''; ?>" min="1" value="<?php echo $data['assignmentmarks']; ?>">
-											<span class="invalid-feedback"><?php echo $data['assignmentmarks_err']; ?></span>
-										</div>
-									</div>
-									<div class="col">
-										<div class="form-group">
 											<label for="assignmentweight">Weight: <sup>*</sup></label>
 											<input type="number" name="assignmentweight" class="form-control <?php echo (!empty($data['assignmentweight_err'])) ? 'is-invalid' : ''; ?>" min="1" value="<?php echo $data['assignmentweight']; ?>">
 											<span class="invalid-feedback"><?php echo $data['assignmentweight_err']; ?></span>
@@ -130,15 +123,6 @@
 								<br>
 								<div class="form-row">
 									<div class="col">
-										<select name="usecategory" id="usecategory" class="custom-select">
-											<option value="0">Use Single Mark</option>	
-											<option value="1">Use K.T.A.C</option>
-										</select>
-									</div>
-								</div>
-								<br>
-								<div class="form-row">
-									<div class="col">
 										<input type="submit" value="Create" style="width: 25%; margin: 0 auto;" class="btn btn-success btn-block">
 									</div>
 								</div>
@@ -154,44 +138,44 @@
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
-	// $(document).ready(() => {
-		$('#assignmentknowledge').val(0);
-		$('#assignmentthinking').val(0);
-		$('#assignmentapplication').val(0);
-		$('#acomm').val(0);
-		$('#assignmentknowledge').prop('readonly', true);
-		$('#assignmentthinking').prop('readonly', true);
-		$('#assignmentapplication').prop('readonly', true);
-		$('#acomm').prop('readonly', true);
+	// // $(document).ready(() => {
+	// 	$('#assignmentknowledge').val(0);
+	// 	$('#assignmentthinking').val(0);
+	// 	$('#assignmentapplication').val(0);
+	// 	$('#acomm').val(0);
+	// 	$('#assignmentknowledge').prop('readonly', true);
+	// 	$('#assignmentthinking').prop('readonly', true);
+	// 	$('#assignmentapplication').prop('readonly', true);
+	// 	$('#acomm').prop('readonly', true);
 
-		$("#usecategory").change(() => {
-			$('#assignmentmarks').prop('readonly', ($("#usecategory").val() == 1) ? true : false);
-			$('#assignmentknowledge').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
-			$('#assignmentthinking').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
-			$('#assignmentapplication').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
-			$('#acomm').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
-			if ($("#usecategory").val() == 0) {
-				$('#assignmentknowledge').val(0);
-				$('#assignmentthinking').val(0);
-				$('#assignmentapplication').val(0);
-				$('#acomm').val(0);
-			}
-		});
+	// 	$("#usecategory").change(() => {
+	// 		$('#assignmentmarks').prop('readonly', ($("#usecategory").val() == 1) ? true : false);
+	// 		$('#assignmentknowledge').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
+	// 		$('#assignmentthinking').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
+	// 		$('#assignmentapplication').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
+	// 		$('#acomm').prop('readonly', ($("#usecategory").val() == 0) ? true : false);
+	// 		if ($("#usecategory").val() == 0) {
+	// 			$('#assignmentknowledge').val(0);
+	// 			$('#assignmentthinking').val(0);
+	// 			$('#assignmentapplication').val(0);
+	// 			$('#acomm').val(0);
+	// 		}
+	// 	});
 
-		$("#assignmentknowledge").change(() => {
-			$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
-		});
+	// 	$("#assignmentknowledge").change(() => {
+	// 		$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
+	// 	});
 
-		$("#assignmentthinking").change(() => {
-			$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
-		});
+	// 	$("#assignmentthinking").change(() => {
+	// 		$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
+	// 	});
 
-		$("#assignmentapplication").change(() => {
-			$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
-		});
+	// 	$("#assignmentapplication").change(() => {
+	// 		$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
+	// 	});
 
-		$("#acomm").change(() => {
-			$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
-		});
-	// });
+	// 	$("#acomm").change(() => {
+	// 		$('#assignmentmarks').val(parseInt($('#assignmentknowledge').val()) + parseInt($('#assignmentthinking').val()) + parseInt($('#assignmentapplication').val()) + parseInt($('#acomm').val()));
+	// 	});
+	// // });
 </script>

@@ -37,10 +37,6 @@
                 <hr>
                 <?php  
                     if ($data['assignmentResultCount'] > 0) {
-                        
-                        //Default Weighting system
-                        $sumOfMarks = 0;
-                        $divdedSum = 0;
 
                         // Variables for mark calculation system
                         $knowledgeWorth = $data['classData']->knowledge;
@@ -89,9 +85,6 @@
                         foreach ($data['allAssignments'] as $assignment) {
                             foreach ($data['assignmentResults'] as $result) {
                                 if ($assignment->id == $result->assignmentid) {
-                                    //Calculation for single mark & weight (NOT KTAC)
-                                    $sumOfMarks += ($result->totalmarks / $assignment->marks) * 100;
-                                    $divdedSum += $assignment->weight;
 
                                     //Calculation for KTAC
                                     
@@ -131,11 +124,25 @@
                         $finalMark = 0;
 
                         //Calculate the term marks
-                        $knowledgeAverage = number_format($knowledgeGainMarks / $knowledgeTotalMarks, 2, '.', '') * $knowledgeWorth;
-                        $thinkingAverage = number_format($thinkingGainMarks / $thinkingTotalMarks, 2, '.', '') * $thinkingWorth;
-                        $applicationAverage = number_format($applicationGainMarks / $applicationTotalMarks, 2, '.', '') * $applicationWorth;
-                        $communicationAverage = number_format($communicationGainMarks / $communicationTotalMarks, 2, '.', '') * $communicationWorth;
                         
+                        if ($knowledgeTotalMarks != 0) {
+                            $knowledgeAverage = number_format($knowledgeGainMarks / $knowledgeTotalMarks, 2, '.', '') * $knowledgeWorth;
+                        }
+
+                        if ($thinkingTotalMarks != 0) {
+                            $thinkingAverage = number_format($thinkingGainMarks / $thinkingTotalMarks, 2, '.', '') * $thinkingWorth;
+                        }
+
+                        if ($applicationTotalMarks != 0) {
+                            $applicationAverage = number_format($applicationGainMarks / $applicationTotalMarks, 2, '.', '') * $applicationWorth;
+                        }
+
+                        if ($communicationTotalMarks != 0) {
+                            $communicationAverage = number_format($communicationGainMarks / $communicationTotalMarks, 2, '.', '') * $communicationWorth;
+                        }
+
+                        //////////////////////////////////
+
                         if ($knowledgeTotalMarksExam != 0) {
                             $knowledgeAverageExam = number_format($knowledgeGainMarksExam / $knowledgeTotalMarksExam, 2, '.', '') * $knowledgeWorth;
                         }
@@ -211,7 +218,10 @@
                                                 <tr>
                                                     <td>Name</td>
                                                     <td>Description</td>
-                                                    <td>Total Marks</td>
+                                                    <td>K</td>
+                                                    <td>T</td>
+                                                    <td>A</td>
+                                                    <td>C</td>
                                                     <td>Weight</td>
                                                     <td>More</td>
                                                 </tr>
@@ -221,7 +231,10 @@
                                                     <tr>
                                                         <td><?php echo $assignment->name; ?></td>
                                                         <td><?php echo $assignment->description; ?></td>
-                                                        <td><?php echo $assignment->marks; ?></td>
+                                                        <td><?php echo $assignment->knowledge; ?></td>
+                                                        <td><?php echo $assignment->thinking; ?></td>
+                                                        <td><?php echo $assignment->application; ?></td>
+                                                        <td><?php echo $assignment->communication; ?></td>
                                                         <td><?php echo $assignment->weight; ?></td>
                                                         <td><a href="<?php echo URLROOT . '/classes/addmark/' . $data['classData']->id . '/' . $data['studentData']->id . '/' . $assignment->id; ?>" class="btn btn-info">Add Marks</a></td>
                                                     </tr>
@@ -241,7 +254,6 @@
                                         <tr>
                                             <td>Name</td>
                                             <td>Description</td>
-                                            <td>Marks</td>
                                             <td>K</td>
                                             <td>T</td>
                                             <td>A</td>
@@ -256,7 +268,6 @@
                                                     <tr>
                                                         <td><?php echo $assignment->name; ?></td>
                                                         <td><?php echo $assignment->description; ?></td>
-                                                        <td><?php echo $result->totalmarks . '/' . $assignment->marks; ?></td>
                                                         <td><?php echo $result->knowledge . '/' . $assignment->knowledge; ?></td>
                                                         <td><?php echo $result->thinking . '/' . $assignment->thinking; ?></td>
                                                         <td><?php echo $result->application . '/' . $assignment->application; ?></td>

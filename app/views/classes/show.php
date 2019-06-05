@@ -106,7 +106,6 @@
 										<tr>
 											<td>Name</td>
 											<td>Description</td>
-											<td>Marks</td>
 											<td>K</td>
 											<td>T</td>
 											<td>A</td>
@@ -120,7 +119,6 @@
 										<tr>
 											<td><?php echo $assignments->name; ?></td>
 											<td><?php echo $assignments->description; ?></td>
-											<td><?php echo $assignments->marks; ?></td>
 											<td><?php echo $assignments->knowledge; ?></td>
 											<td><?php echo $assignments->thinking; ?></td>
 											<td><?php echo $assignments->application; ?></td>

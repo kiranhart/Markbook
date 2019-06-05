@@ -44,28 +44,19 @@
 									<textarea name="assignmentdesc" rows="3" class="form-control" readonly><?php echo $data['assignmentData']->description; ?></textarea>
 								</div>
 								<div class="form-row">
-									<div class="col">
-										<div class="form-group">
-											<label for="marks">Marks:</label>
-											<input type="number" min="0" max="<?php echo $data['assignmentData']->marks; ?>" step="0.01" name="marklabel" id="marklabel" class="form-control" value="<?php echo $data['marks']; ?>">
-											<span class="invalid-feedback"><?php echo $data['marks_err']; ?></span>
-										</div>
-									</div>
-								</div>
-								<div class="form-row">
-									<div class="col">
+									<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
 										<label for="knowledgemarks">Knowledge: <sup>*</sup></label>
 										<input type="number" min="0" max="<?php echo $data['assignmentData']->knowledge; ?>" step="0.01" name="knowledgemarks" id="knowledgemarks" class="form-control" value="<?php echo $data['knowledgemarks']; ?>">
 									</div>
-									<div class="col">
+									<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
 										<label for="thinkingmarks">Thinking: <sup>*</sup></label>
 										<input type="number" min="0" max="<?php echo $data['assignmentData']->thinking; ?>" step="0.01" name="thinkingmarks" id="thinkingmarks" class="form-control" value="<?php echo $data['thinkingmarks']; ?>">
 									</div>
-									<div class="col">
+									<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
 										<label for="applicationmarks">Application: <sup>*</sup></label>
 										<input type="number" min="0" max="<?php echo $data['assignmentData']->application; ?>" step="0.01" name="applicationmarks" id="applicationmarks" class="form-control" value="<?php echo $data['applicationmarks']; ?>">
 									</div>
-									<div class="col">
+									<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
 										<label for="communicationmarks">Communication: <sup>*</sup></label>
 										<input type="number" min="0" max="<?php echo $data['assignmentData']->communication; ?>" step="0.01" name="communicationmarks" id="communicationmarks" class="form-control" value="<?php echo $data['communicationmarks']; ?>">
 									</div>

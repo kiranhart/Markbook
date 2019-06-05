@@ -163,7 +163,8 @@
           $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
           if ($loggedInUser) {
-            //Create user sessioM
+            //Create user session
+            $this->userModel->recordLoginData($loggedInUser->id);
             $this->createUserSession($loggedInUser);
           } else {
             $data['password_err'] = 'Incorrect password!';
@@ -196,7 +197,8 @@
       $studentCount = $this->studentModel->getStudentCountByTeacher($_SESSION['user_id']);
       $allStudents = $this->studentModel->getAllStudentsByTeacher($_SESSION['user_id']);
       $assignmentCount = $this->assignmentModel->getAssignmentCountByTeacher($_SESSION['user_id']);
-			$allAssignments = $this->assignmentModel->getAllAssignmentsByTeacher($_SESSION['user_id']);
+      $allAssignments = $this->assignmentModel->getAllAssignmentsByTeacher($_SESSION['user_id']);
+      $loginDates = $this->userModel->getAllLoginDates($_SESSION['user_id']);
 
       $data = [
         'classCount' => $classCount,
@@ -204,14 +206,17 @@
         'assignmentCount' => $assignmentCount,
         'allClasses' => $allClasses,
         'allStudents' => $allStudents,
-        'allAssignments' => $allAssignments
+        'allAssignments' => $allAssignments,
+        'loginDates' => $loginDates
       ];
 
       $this->view('users/home', $data);
     }
 
     public function account() {
-        $data = [];
+        $data = [
+          'log' => $this->userModel->recordLoginData()
+        ];
         $this->view('users/account', $data);
     }
 

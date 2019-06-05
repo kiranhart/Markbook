@@ -21,6 +21,34 @@
       }
     }
 
+    public function recordLoginData($id) {
+      $json = file_get_contents("http://www.geoplugin.net/json.gp");
+      $data = json_decode($json, true);
+
+      $this->db->query('INSERT INTO login_data (userid, continent, country, region, city, latitude, longitude, ip) VALUES (:userid, :continent, :country, :region, :city, :latitude, :longitude, :ip)');
+      $this->db->bind(':userid', $id);
+      $this->db->bind(':continent', $data['geoplugin_continentName']);
+      $this->db->bind(':country', $data['geoplugin_countryName']);
+      $this->db->bind(':region', $data['geoplugin_regionName']);
+      $this->db->bind(':city', $data['geoplugin_city']);
+      $this->db->bind(':latitude', $data['geoplugin_latitude']);
+      $this->db->bind(':longitude', $data['geoplugin_longitude']);
+      $this->db->bind(':ip', $data['geoplugin_request']);
+
+      // Execute
+      if ($this->db->execute()){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    public function getAllLoginDates($id) {
+      $this->db->query('SELECT * FROM login_data WHERE userid = :id');
+      $this->db->bind(':id', $id);
+      return $this->db->resultSet();
+    }
+
     // Regsiter user
     public function register($data){
       $this->db->query('INSERT INTO users (firstname, lastname, prefix, email, password, birthdate, sex, managed, accountype) VALUES(:firstname, :lastname, :prefix, :email, :password, :birthdate, :sex, :managed, :accountype)');
@@ -60,7 +88,7 @@
       $this->db->bind(':id', $id);
       $row = $this->db->single();
 
-      return ($his->db->rowCount() > 0) ? $row : null;
+      return ($this->db->rowCount() > 0) ? $row : null;
     }
 
     // Find user by email

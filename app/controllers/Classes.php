@@ -196,13 +196,11 @@ class Classes extends Controller {
                 'classData' => $classData,
                 'studentData' => $studentData,
                 'assignmentData' => $assignmentData,
-                'marks' => trim($_POST['marks']),
                 'knowledgemarks' => trim($_POST['knowledgemarks']),
                 'thinkingmarks' => trim($_POST['thinkingmarks']),
                 'applicationmarks' => trim($_POST['applicationmarks']),
                 'communicationmarks' => trim($_POST['communicationmarks']),
                 'late' => trim($_POST['late']),
-                'marks_err' => '',
                 'knowledgemarks_err' => '',
                 'thinkingmarks_err' => '',
                 'applicationmarks_err' => '',
@@ -229,17 +227,17 @@ class Classes extends Controller {
                 $data['communicationmarks_err'] = "Please enter communication marks";
             }
 
-            if (empty($data['marks_err']) && empty($data['knowledgemarks_err']) && empty($data['thinkingmarks_err']) && empty($data['applicationmarks_err']) && empty($data['communicationmarks_err'])) {
+            if (empty($data['knowledgemarks_err']) && empty($data['thinkingmarks_err']) && empty($data['applicationmarks_err']) && empty($data['communicationmarks_err'])) {
 
                 //Is there already assignment results?
                 if ($this->assignmentModel->doesAssignmentResultExist($assignmentid, $classid, $studentid)) {
-                    if ($this->assignmentModel->updateAssignmentResultByData($assignmentid, $classid, $studentid, $data['marks'], $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
+                    if ($this->assignmentModel->updateAssignmentResultByData($assignmentid, $classid, $studentid, 0, $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
                         redirect('classes/student/' . $classid . '/' . $studentid);
                     } else {
                         die('Something went wrong');
                     }
                 } else {
-                    if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, $data['marks'], $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
+                    if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $studentid, 0, $data['knowledgemarks'], $data['thinkingmarks'], $data['applicationmarks'], $data['communicationmarks'], $data['late'])) {
                         redirect('classes/student/' . $classid . '/' . $studentid);
                     } else {
                         die('Something went wrong');
@@ -256,15 +254,11 @@ class Classes extends Controller {
                 'classData' => $classData,
                 'studentData' => $studentData,
                 'assignmentData' => $assignmentData,
-                'marks' => '',
-                'marks_err' => '',
                 'knowledgemarks' => '',
                 'thinkingmarks' => '',
                 'applicationmarks' => '',
                 'communicationmarks' => '',
                 'late' => '',
-                'marks_err' => '',
-                'marks_err' => '',
                 'knowledgemarks_err' => '',
                 'thinkingmarks_err' => '',
                 'applicationmarks_err' => '',

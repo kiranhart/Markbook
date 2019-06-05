@@ -31,7 +31,6 @@ class Assignments extends Controller {
                 'classes' => $this->classModel->getAllClassesById($_SESSION['user_id']),
                 'assignmentname' => trim($_POST['assignmentname']),
                 'assignmentdesc' => trim($_POST['assignmentdesc']),
-                'assignmentmarks' => trim($_POST['assignmentmarks']),
                 'assignmentweight' => trim($_POST['assignmentweight']),
                 'assignmentknowledge' => trim($_POST['assignmentknowledge']),
                 'assignmentthinking' => trim($_POST['assignmentthinking']),
@@ -41,10 +40,8 @@ class Assignments extends Controller {
                 'duedate' => trim($_POST['duedate']),
                 'class' => trim($_POST['class']),
                 'isfinal' => trim($_POST['isfinal']),
-                'usecategory' => trim($_POST['usecategory']),
                 'assignmentname_err' => '',
                 'assignmentdesc_err' => '',
-                'assignmentmarks_err' => '',
                 'assignmentweight_err' => '',
                 'assignmentknowledge_err' => '',
                 'assignmentthinking_err' => '',
@@ -63,33 +60,20 @@ class Assignments extends Controller {
                 $data['assignmentdesc_err'] = "Enter assignment description";
             }
 
-            if ($data['usecategory'] == 1) {
+            if (!isset($data['assignmentknowledge'])) {
+                $data['assignmentknowledge_err'] = "Please enter knowledge marks.";
+            }
 
-                if (!isset($data['assignmentknowledge'])) {
-                    $data['assignmentknowledge_err'] = "Please enter knowledge marks.";
-                }
-    
-                if (!isset($data['assignmentthinking'])) {
-                    $data['assignmentthinking_err'] = "Please enter thinking marks";
-                }
-    
-                if (!isset($data['assignmentapplication'])) {
-                    $data['assignmentapplication_err'] = "Please enter application marks";
-                }
-    
-                if (!isset($data['acomm'])) {
-                    $data['acomm_err'] = "Please enter communication marks";
-                }
+            if (!isset($data['assignmentthinking'])) {
+                $data['assignmentthinking_err'] = "Please enter thinking marks";
+            }
 
-            } else {
-                if (empty($data['assignmentmarks'])) {
-                    $data['assignmentmarks_err'] = "Enter a number of marks for assignment";
-                } else {
-                    if ($data['assignmentmarks'] < 1) {
-                        
-                        $data['assignmentmarks_err'] = "Assignments need at least 1 mark.";
-                    }
-                }
+            if (!isset($data['assignmentapplication'])) {
+                $data['assignmentapplication_err'] = "Please enter application marks";
+            }
+
+            if (!isset($data['acomm'])) {
+                $data['acomm_err'] = "Please enter communication marks";
             }
 
             if (empty($data['assignmentweight'])) {
@@ -108,9 +92,9 @@ class Assignments extends Controller {
                 $data['class_err'] = "Enter select a class to add assignment to.";
             } 
 
-            if (empty($data['assignmentknowledge_err']) && empty($data['assignmentthinking_err']) && empty($data['assignmentapplication_err']) && empty($data['acomm_err']) && empty($data['assignmentname_err']) && empty($data['assignmentdesc_err']) && empty($data['assignmentmarks_err']) && empty($data['assignmentweight_err']) && empty($data['assigneddate_err']) && empty($data['duedate_err']) && empty($data['class_err'])) {
+            if (empty($data['assignmentknowledge_err']) && empty($data['assignmentthinking_err']) && empty($data['assignmentapplication_err']) && empty($data['acomm_err']) && empty($data['assignmentname_err']) && empty($data['assignmentdesc_err']) && empty($data['assignmentweight_err']) && empty($data['assigneddate_err']) && empty($data['duedate_err']) && empty($data['class_err'])) {
                 //Add assignment
-                if ($this->assignmentModel->addAssignment($_SESSION['user_id'], $data['class'], $data['assignmentname'], $data['assignmentdesc'], $data['assignmentmarks'], $data['assignmentweight'], $data['assignmentknowledge'], $data['assignmentthinking'], $data['assignmentapplication'], $data['acomm'], $data['isfinal'], $data['assigneddate'], $data['duedate'])) {
+                if ($this->assignmentModel->addAssignment($_SESSION['user_id'], $data['class'], $data['assignmentname'], $data['assignmentdesc'], 0, $data['assignmentweight'], $data['assignmentknowledge'], $data['assignmentthinking'], $data['assignmentapplication'], $data['acomm'], $data['isfinal'], $data['assigneddate'], $data['duedate'])) {
                     redirect('classes/show/' . $data['class']);
                 } else {
                     die("Something went wrong");
@@ -125,7 +109,6 @@ class Assignments extends Controller {
                 'classes' => $this->classModel->getAllClassesById($_SESSION['user_id']),
                 'assignmentname' => '',
                 'assignmentdesc' => '',
-                'assignmentmarks' => '',
                 'assignmentweight' => '',
                 'assignmentknowledge' => '',
                 'assignmentthinking' => '',
@@ -135,10 +118,8 @@ class Assignments extends Controller {
                 'duedate' => '',
                 'class' => '',
                 'isfinal' => '',
-                'usecategory' => '',
                 'assignmentname_err' => '',
                 'assignmentdesc_err' => '',
-                'assignmentmarks_err' => '',
                 'assignmentweight_err' => '',
                 'assignmentknowledge_err' => '',
                 'assignmentthinking_err' => '',

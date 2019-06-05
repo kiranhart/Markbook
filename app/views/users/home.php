@@ -10,7 +10,7 @@
 <div style="width: 100%; height: auto;" class="container-fluid">
 
     <div class="row">
-        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: 100vh; background-color: #272e38;">
+        <div class="d-none d-md-block col-md-2 col-lg-2 col-xl-2" style="height: auto; background-color: #272e38;">
             <h4 class="text-center text-white mt-5"><?php echo $_SESSION['user_data']->prefix . '. ' . $_SESSION['user_data']->lastname; ?></h4>
             <hr style="color: white; background-color: white;">
             <br>
@@ -35,7 +35,7 @@
                 </div>
                 <hr>
                 <div class="row">  
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
                         <div class="list-group">
                             <?php foreach ($data['allClasses'] as $classes): ?>
                                 <a href="<?php echo URLROOT . '/classes/show/' . $classes->id ;?>" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -47,11 +47,33 @@
                             <?php endforeach;?>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
+                        <div class="list-group">
+                            <?php foreach ($data['allStudents'] as $students): ?>
+                                <a href="<?php echo URLROOT . '/students/show/' . $students->id ;?>" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1"><?php echo $students->firstname . ', ' . $students->lastname; ?></h5>
+                                    </div>
+                                    <p class="mb-1"><?php echo 'Birthday: ' . $students->birthdate . '<br>Student #: ' . $students->studentnumber; ?></p>
+                                </a>
+                            <?php endforeach;?>
+                        </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
+                        <div class="list-group">
+                            <?php foreach ($data['loginDates'] as $dates): ?>
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1"><?php echo $dates->country . ', ' . $dates->continent; ?></h5>
+                                    </div>
+                                    <p class="mb-1">
+                                        <?php 
+                                            echo $dates->city .', ' . $dates->region . '<br>Lon: ' . $dates->longitude . ' Lat: ' . $dates->latitude . '<br>IP: ' . $dates->ip . '<br>Time: ' . $dates->time; 
+                                        ?>
+                                    </p>
+                                </a>
+                            <?php endforeach;?>
+                        </div>
                     </div>
                 </div>
             </div>
