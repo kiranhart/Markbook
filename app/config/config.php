@@ -10,6 +10,6 @@
   // URL Root
   define('URLROOT', 'http://localhost/Markbook');
   // Site Name
-  define('SITENAME', 'Markbook');
+  define('SITENAME', 'Speed Grader');
   //App Version
   define('VERSION', 0.1);

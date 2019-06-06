@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-md <?php echo (isLoggedIn()) ? 'bg-dark navbar-dark' : 'bg-transparent navbar-dark'; ?>">
+<nav class="navbar navbar-expand-md <?php echo (isLoggedIn()) ? 'bg-dark navbar-dark' : 'bg-dark navbar-dark'; ?>">
     <div class="container">
         <a href="<?php echo (isLoggedIn()) ? URLROOT . '/users/home' : URLROOT; ?>" class="navbar-brand">
             <img src="<?php echo URLROOT . '/images/favicon.png'; ?>" width="30" height="30" class="d-inline-block align-top mr-1">
-            Markbook
+            Speed Grader
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
