@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md <?php echo (isLoggedIn()) ? 'bg-dark navbar-dark' : 'bg-dark navbar-dark'; ?>">
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
     <div class="container">
         <a href="<?php echo (isLoggedIn()) ? URLROOT . '/users/home' : URLROOT; ?>" class="navbar-brand">
             <img src="<?php echo URLROOT . '/images/favicon.png'; ?>" width="30" height="30" class="d-inline-block align-top mr-1">
@@ -24,20 +24,14 @@
                             <?php echo $_SESSION['user_data']->prefix . ". " . $_SESSION['user_data']->lastname; ?>
                         </a>
                         <div class="dropdown-menu" aria=labelledby="navbarDropdown">
-                            <a href="<?php echo URLROOT . '/users/account'; ?>" class="dropdown-item">Account</a>
+                            <a href="<?php echo URLROOT . '/users/account'; ?>" class="dropdown-item disabled">Account</a>
                             <div class="dropdown-divider"></div>
                             <a href="<?php echo URLROOT . '/users/logout'; ?>" class="dropdown-item">Logout</a>
                         </div>
                     </li>
                 <?php else : ?>
                     <li class="nav-item active">
-                        <a href="<?php echo URLROOT . '/pages/about'; ?>" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a href="<?php echo URLROOT . '/pages/features'; ?>" class="nav-link">Features</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a href="<?php echo URLROOT . '/users/login'; ?>" class="nav-link">Login</a>
+                        <a href="<?php echo URLROOT . '/users/login'; ?>" class="nav-link text-white btn btn-success px-4 py-2">Login</a>
                     </li>
                 <?php endif; ?>
             </ul>

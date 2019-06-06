@@ -1,7 +1,7 @@
 <head>
     <style>
         body {
-            background-image: url(<?php echo URLROOT . '/images/pages/eberhard-gloss.jpg' ?>);
+            background-image: url(<?php echo URLROOT . '/images/pages/cellphone-desk.jpg' ?>);
             background-size: cover;
             background-position: center center;
         }
@@ -10,11 +10,11 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php if (!isset($_SESSION['user_id'])) : ?>
-<div style="margin-top: 7%;" class="container-fluid">
+<div style="margin-top: 4%;" class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mx-auto">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mx-auto">
             <div style="border: none;" class="card shadow-lg">
-                <div class="card-header text-white bg-dark">
+                <div class="card-header text-white bg-primary">
                     <h1 class="text-center">Login</h1>
                 </div>
                 <div class="card-body container">
@@ -37,7 +37,7 @@
                                 <input type="submit" value="Login" class="btn btn-success btn-block">
                             </div>
                             <div class="col">
-                                <a href="<?php echo URLROOT . '/users/register'?>" class="btn btn-light btn-block">Need account? Register</a>
+                                <a href="<?php echo URLROOT . '/users/register'?>" class="btn btn-light btn-block">Register</a>
                             </div>
                         </div>
                     </form>
