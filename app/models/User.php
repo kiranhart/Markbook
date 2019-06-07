@@ -49,7 +49,7 @@
       return $this->db->resultSet();
     }
 
-    // Regsiter user
+    // Regsiter the user
     public function register($data){
       $this->db->query('INSERT INTO users (firstname, lastname, prefix, email, password, birthdate, sex, managed, accountype) VALUES(:firstname, :lastname, :prefix, :email, :password, :birthdate, :sex, :managed, :accountype)');
       // Bind values
