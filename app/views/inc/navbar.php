@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
         <a href="<?php echo (isLoggedIn()) ? URLROOT . '/users/home' : URLROOT; ?>" class="navbar-brand">
             <img src="<?php echo URLROOT . '/images/favicon.png'; ?>" width="30" height="30" class="d-inline-block align-top mr-1">
@@ -25,6 +25,9 @@
                         </a>
                         <div class="dropdown-menu" aria=labelledby="navbarDropdown">
                             <a href="<?php echo URLROOT . '/users/account'; ?>" class="dropdown-item disabled">Account</a>
+                                <?php if (userAccountType() == 10) : ?>
+                                    <a href="<?php echo URLROOT . '/admins'; ?>" class="dropdown-item">Admin</a>
+                                <?php endif; ?>
                             <div class="dropdown-divider"></div>
                             <a href="<?php echo URLROOT . '/users/logout'; ?>" class="dropdown-item">Logout</a>
                         </div>

@@ -10,4 +10,12 @@ function isLoggedIn() {
 	}
 }
 
+function userAccountType() {
+	if (isLoggedIn()) {
+		return $_SESSION['user_data']->accountype;
+	} else {
+		return -1;
+	}
+}
+
 ?>

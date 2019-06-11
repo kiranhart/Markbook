@@ -183,6 +183,62 @@ class Classes extends Controller {
         $this->view('classes/student', $data);
     }
 
+    public function addmarks($classid, $assignmentid) {
+        
+        $classData = $this->classModel->getClassById($classid);
+        $assignmentData = $this->assignmentModel->getAssignment($assignmentid);
+        $allStudents = $this->studentModel->getAllStudentsByClass($classid);
+
+        $fullStudent = array();
+
+        foreach ($allStudents as $student) {
+            array_push($fullStudent, $this->studentModel->getStudent($student->studentid));
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'classData' => $classData,
+                'assignmentData' => $assignmentData,
+                'allStudents' => $allStudents,
+                'fullStudents' => $fullStudent
+            ];
+
+            foreach ($allStudents as $students) {
+                $kmarks = trim($_POST['knowledgemarks-' . $students->id]);
+                $tmarks = trim($_POST['thinkingmarks-' . $students->id]);
+                $amarks = trim($_POST['aplicationmarks-' . $students->id]);
+                $cmarks = trim($_POST['communicationmarks-' . $students->id]);
+
+                if ($this->assignmentModel->doesAssignmentResultExist($assignmentid, $classid, $students->id)) {
+                    if ($this->assignmentModel->updateAssignmentResultByData($assignmentid, $classid, $students->id, 0, $kmarks, $tmarks, $amarks, $cmarks, 0)) {
+                        redirect('classes/addmarks/' . $classid . '/' . $assignmentid);
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    if ($this->assignmentModel->addAssignmentResult($assignmentid, $_SESSION['user_id'], $classid, $students->id, 0, $kmarks, $tmarks, $amarks, $cmarks, 0)) {
+                        redirect('classes/addmarks/' . $classid . '/' . $assignmentid);
+                    } else {
+                        die('Something went wrong');
+                    }
+                }
+            }
+        } else {
+
+            $data = [
+                'classData' => $classData,
+                'assignmentData' => $assignmentData,
+                'allStudents' => $allStudents,
+                'fullStudents' => $fullStudent
+            ];
+
+            $this->view('classes/addmarks', $data);
+        }
+    }
+
     public function addmark($classid, $studentid, $assignmentid) {
 
         $classData = $this->classModel->getClassById($classid);
@@ -196,20 +252,15 @@ class Classes extends Controller {
                 'classData' => $classData,
                 'studentData' => $studentData,
                 'assignmentData' => $assignmentData,
-                'knowledgemarks' => trim($_POST['knowledgemarks']),
-                'thinkingmarks' => trim($_POST['thinkingmarks']),
-                'applicationmarks' => trim($_POST['applicationmarks']),
-                'communicationmarks' => trim($_POST['communicationmarks']),
-                'late' => trim($_POST['late']),
+                'knowledgemarks' => '',
+                'thinkingmarks' => '',
+                'applicationmarks' => '',
+                'communicationmarks' => '',
                 'knowledgemarks_err' => '',
                 'thinkingmarks_err' => '',
                 'applicationmarks_err' => '',
                 'communicationmarks_err' => ''
             ];
-
-            if (!isset($data['marks'])) {
-                $data['marks_err'] = "Please enter total marks";
-            }
 
             if (!isset($data['knowledgemarks'])) {
                 $data['knowledgemarks_err'] = "Please enter knowledge marks";

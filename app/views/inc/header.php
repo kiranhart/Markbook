@@ -10,5 +10,22 @@
   <title><?php echo SITENAME; ?></title>
 </head>
 <body>
-  <?php require APPROOT . '/views/inc/navbar.php'; ?>
+  <?php if (userAccountType() == 10) : ?>
+    <?php require APPROOT . '/views/inc/navbar_admin.php'; ?>
+  <?php else: ?>
+    <?php require APPROOT . '/views/inc/navbar.php'; ?>
+  <?php endif;?>
+
+  <!-- 
+
+  -- Allow adding multiple students at a single time
+  -- Unmarked assignment list is currently bugged
+  -- Allow mass mark addtion
+      -> Click an assignment, it list all students where you can input the marks.
+  
+  END GOAL: Needs to be more fluent / user friendly?
+
+   -->
+
+
   

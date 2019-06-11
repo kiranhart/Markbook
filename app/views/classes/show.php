@@ -42,7 +42,8 @@
 											<h4 class="card-title"><?php echo $student->firstname . ', ' . $student->lastname; ?></h4>
 											<div class="card-subtitle mb-2 text-muted"><?php echo 'Student #: '. $student->studentnumber . '<br>Birthdate: ' . $student->birthdate . '<br>Email: ' . $student->email; ?></div>
 											<a href="<?php echo URLROOT . '/classes/student/' . $data['classData']->id . '/' . $student->id; ?>" class="card-link btn btn-info">View</a>
-											<a href="<?php echo URLROOT . '/classes/removestudent/'. $data['classData']->id;?>" class="card-link btn btn-danger">Delete</a>						
+											<a href="<?php echo URLROOT . '/classes/removestudent/'. $data['classData']->id;?>" class="card-link btn btn-danger">Delete</a>		
+											<a href="<?php echo URLROOT . '/classes/addmarks/' . $data['classData']->id . '/' . $assignments->id; ?>" class="btn btn-primary">Mark</a>				
 										</div>
 									</div>
 								<?php endforeach; ?>
@@ -179,6 +180,7 @@
 											<td>C</td>
 											<td>Weight</td>
 											<td>Final</td>
+											<td>More</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -192,6 +194,7 @@
 											<td><?php echo $assignments->communication; ?></td>
 											<td><?php echo $assignments->weight; ?></td>
 											<td><?php echo ($assignments->isfinal == 1) ? '<i class="text-success material-icons text-center" style="display: inline-block; vertical-align: middle;">check</i>' : '<i class="text-danger material-icons" style="display: inline-block; vertical-align: middle;">close</i>'; ?></td>
+											<td><a href="<?php echo URLROOT . '/classes/addmarks/' . $data['classData']->id . '/' . $assignments->id; ?>" class="btn btn-info">Mark</a></td>
 										</tr>
 										<?php endforeach; ?>
 									</tbody>
