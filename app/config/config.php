@@ -8,7 +8,7 @@
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // URL Root
-  define('URLROOT', 'http://localhost/Markbook');
+  define('URLROOT', 'https://speedgradr.com');
   // Site Name
   define('SITENAME', 'Speed Grader');
   //App Version
